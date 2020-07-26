@@ -11,10 +11,15 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerAdapter(
-        private val appList: ArrayList<AppInfo>,
+        private var appList: ArrayList<AppInfo>,
         private val recyclerView: RecyclerView,
         private val packageManager: PackageManager
     ): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+
+    fun updateList(newAppList: ArrayList<AppInfo>) {
+        appList = newAppList
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img = itemView.findViewById(R.id.img) as ImageView

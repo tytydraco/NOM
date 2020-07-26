@@ -2,28 +2,20 @@ package com.draco.nom
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var recycler: RecyclerView
+    private lateinit var adapter: RecyclerAdapter
+    private lateinit var appInfoList: ArrayList<AppInfo>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+    private fun getAppList(): ArrayList<AppInfo> {
         val launcherIntent = Intent(Intent.ACTION_MAIN, null)
         launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER)
 
         val activities = packageManager.queryIntentActivities(launcherIntent, 0)
-        activities.sortBy {
-            it.activityInfo.name
-        }
-
         val appList = ArrayList<AppInfo>()
         for (app in activities) {
             val id = app.activityInfo.packageName
@@ -43,9 +35,19 @@ class MainActivity : AppCompatActivity() {
             it.name.toLowerCase()
         }
 
+        return appList
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
         recycler = findViewById(R.id.recycler)
         recycler.setItemViewCacheSize(250)
-        recycler.adapter = RecyclerAdapter(appList, recycler, packageManager)
+
+        appInfoList = getAppList()
+        adapter = RecyclerAdapter(appInfoList, recycler, packageManager)
+        recycler.adapter = adapter
 
         val displayMetrics = resources.displayMetrics
         val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
@@ -56,5 +58,13 @@ class MainActivity : AppCompatActivity() {
         val statusSize = resources.getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
         val navSize = resources.getDimensionPixelSize(resources.getIdentifier("navigation_bar_height", "dimen", "android"))
         recycler.setPadding(0, statusSize, 0, navSize)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val newAppInfoList = getAppList()
+        if (appInfoList != newAppInfoList)
+            adapter.updateList(newAppInfoList)
     }
 }
