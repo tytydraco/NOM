@@ -2,9 +2,12 @@ package com.draco.nom
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recycler: RecyclerView
@@ -43,7 +46,13 @@ class MainActivity : AppCompatActivity() {
         recycler = findViewById(R.id.recycler)
         recycler.setItemViewCacheSize(250)
         recycler.adapter = RecyclerAdapter(appList, recycler, packageManager)
-        recycler.layoutManager = GridLayoutManager(this, 5)
+
+        val displayMetrics = resources.displayMetrics
+        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
+        val iconSize = resources.getDimension(R.dimen.icon_size) / displayMetrics.density
+        val columns = (screenWidthDp / iconSize).toInt()
+        recycler.layoutManager = GridLayoutManager(this, columns)
+
         val statusSize = resources.getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
         val navSize = resources.getDimensionPixelSize(resources.getIdentifier("navigation_bar_height", "dimen", "android"))
         recycler.setPadding(0, statusSize, 0, navSize)
