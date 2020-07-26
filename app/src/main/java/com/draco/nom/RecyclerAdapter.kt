@@ -37,13 +37,17 @@ class RecyclerAdapter(
 
         holder.itemView.setOnClickListener {
             val intent = packageManager.getLaunchIntentForPackage(info.id)
-            recyclerView.context.startActivity(intent)
+            try {
+                recyclerView.context.startActivity(intent)
+            } catch (_: Exception) {}
         }
 
         holder.itemView.setOnLongClickListener {
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             intent.data = Uri.fromParts("package", info.id, null)
-            recyclerView.context.startActivity(intent)
+            try {
+                recyclerView.context.startActivity(intent)
+            } catch (_: Exception) {}
             return@setOnLongClickListener true
         }
     }
