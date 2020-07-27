@@ -61,11 +61,18 @@ class MainActivity : AppCompatActivity() {
         recycler.setPadding(0, statusSize, 0, navSize)
     }
 
-    override fun onResume() {
-        super.onResume()
-
+    private fun refreshAppList() {
         val newAppInfoList = getAppList()
         if (appInfoList != newAppInfoList)
             adapter.updateList(newAppInfoList)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshAppList()
+    }
+
+    override fun onBackPressed() {
+        refreshAppList()
     }
 }
