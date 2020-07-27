@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         appList.sortBy {
-            it.name.toLowerCase()
+            it.name.toLowerCase(Locale.getDefault())
         }
 
         return appList
