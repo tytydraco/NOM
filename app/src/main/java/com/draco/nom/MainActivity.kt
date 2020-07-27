@@ -55,10 +55,6 @@ class MainActivity : AppCompatActivity() {
         val iconSize = resources.getDimension(R.dimen.icon_size) / displayMetrics.density
         val columns = (screenWidthDp / iconSize).toInt()
         recycler.layoutManager = GridLayoutManager(this, columns)
-
-        val statusSize = resources.getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
-        val navSize = resources.getDimensionPixelSize(resources.getIdentifier("navigation_bar_height", "dimen", "android"))
-        recycler.setPadding(0, statusSize, 0, navSize)
     }
 
     private fun refreshAppList() {
