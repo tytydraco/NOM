@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
+
 
 class RecyclerAdapter(
         private var appList: ArrayList<AppInfo>,
@@ -40,10 +42,16 @@ class RecyclerAdapter(
         holder.img.setImageDrawable(info.img)
         holder.img.contentDescription = info.name
 
+        val bundle = ActivityOptionsCompat.makeCustomAnimation(
+            recyclerView.context,
+            R.anim.slide_down_enter,
+            android.R.anim.fade_out
+        ).toBundle()
+
         holder.itemView.setOnClickListener {
             val intent = packageManager.getLaunchIntentForPackage(info.id)
             try {
-                recyclerView.context.startActivity(intent)
+                recyclerView.context.startActivity(intent, bundle)
             } catch (_: Exception) {}
         }
 
@@ -51,7 +59,7 @@ class RecyclerAdapter(
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             intent.data = Uri.fromParts("package", info.id, null)
             try {
-                recyclerView.context.startActivity(intent)
+                recyclerView.context.startActivity(intent, bundle)
             } catch (_: Exception) {}
             return@setOnLongClickListener true
         }
