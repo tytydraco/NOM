@@ -2,13 +2,16 @@ package com.draco.nom
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.net.Uri
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -25,6 +28,7 @@ class RecyclerAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img = itemView.findViewById(R.id.img) as ImageView
+        val name = itemView.findViewById(R.id.name) as TextView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,6 +45,7 @@ class RecyclerAdapter(
 
         holder.img.setImageDrawable(info.img)
         holder.img.contentDescription = info.name
+        holder.name.text = info.name
 
         val bundle = ActivityOptionsCompat.makeCustomAnimation(
             recyclerView.context,

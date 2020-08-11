@@ -2,6 +2,7 @@ package com.draco.nom
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         for (app in activities) {
             val id = app.activityInfo.packageName
 
-            if (id == BuildConfig.APPLICATION_ID)
+            if (id == packageName)
                 continue
 
             val info = AppInfo()
