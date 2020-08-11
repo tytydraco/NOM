@@ -2,7 +2,6 @@ package com.draco.nom
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.net.Uri
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -11,9 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.recyclerview.widget.RecyclerView
-
 
 class RecyclerAdapter(
         private var appList: ArrayList<AppInfo>,

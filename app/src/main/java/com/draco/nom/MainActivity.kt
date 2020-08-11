@@ -2,13 +2,11 @@ package com.draco.nom
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 import kotlin.collections.ArrayList
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recycler: RecyclerView
