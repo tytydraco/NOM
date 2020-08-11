@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         for (app in activities) {
             val id = app.activityInfo.packageName
 
-            if (id == BuildConfig.APPLICATION_ID)
+            if (id == packageName)
                 continue
 
             val info = AppInfo()
