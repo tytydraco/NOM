@@ -6,10 +6,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">#88000000</item>
+        <item name="android:navigationBarColor">#88000000</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
 </resources>

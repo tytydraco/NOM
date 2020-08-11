@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#88000000"
-    android:clipToPadding="false"
+    android:clipToPadding="true"
     android:id="@+id/recycler"
+    android:fadingEdgeLength="30dp"
+    android:requiresFadingEdge="vertical"
+    android:scrollbars="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
     tools:context=".MainActivity" />
