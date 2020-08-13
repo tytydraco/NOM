@@ -52,6 +52,7 @@ class RecyclerAdapter(
 
         holder.itemView.setOnClickListener {
             val intent = packageManager.getLaunchIntentForPackage(info.id)
+            intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             try {
                 recyclerView.context.startActivity(intent, bundle)
             } catch (_: Exception) {}
@@ -59,6 +60,7 @@ class RecyclerAdapter(
 
         holder.itemView.setOnLongClickListener {
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.data = Uri.fromParts("package", info.id, null)
             try {
                 recyclerView.context.startActivity(intent, bundle)
