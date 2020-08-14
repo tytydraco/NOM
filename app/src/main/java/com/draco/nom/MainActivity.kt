@@ -5,11 +5,13 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -87,6 +89,14 @@ class MainActivity : AppCompatActivity() {
         if (!sharedPrefs.getBoolean("rotation", false)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
+
+        val backgroundColorString = sharedPrefs.getString("background_color", "#88000000")
+        try {
+            val backgroundColor = Color.parseColor(backgroundColorString)
+            window.statusBarColor = backgroundColor
+            window.navigationBarColor = backgroundColor
+            recycler.setBackgroundColor(backgroundColor)
+        } catch (_: Exception) {}
     }
 
     override fun onBackPressed() {}

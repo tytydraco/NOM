@@ -29,6 +29,11 @@
             android:title="Enable vertical scrollbar"
             android:summary="Display vertical scroll bar on the right edge of the screen"
             android:defaultValue="true" />
+        <EditTextPreference
+            android:key="background_color"
+            android:title="Background color"
+            android:summary="Hex color including alpha for window backgrounds"
+            android:defaultValue="#88000000" />
     </PreferenceCategory>
     <PreferenceCategory android:title="About">
         <Preference
