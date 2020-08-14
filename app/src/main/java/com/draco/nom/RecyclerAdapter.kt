@@ -17,6 +17,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class RecyclerAdapter(
         private var appList: ArrayList<AppInfo>,
@@ -97,7 +98,9 @@ class RecyclerAdapter(
         val info = appList[position]
 
         if (info.img != null)
-            holder.img.setImageDrawable(info.img)
+            Glide.with(holder.img)
+                .load(info.img)
+                .into(holder.img)
         
         if (sharedPrefs.getBoolean("icon_labels", true))
             holder.name.text = info.name
