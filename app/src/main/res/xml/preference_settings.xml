@@ -16,6 +16,11 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="Customization">
         <SwitchPreference
+            android:key="icon_labels"
+            android:title="Enable icon labels"
+            android:summary="Display app names below their icon"
+            android:defaultValue="true" />
+        <SwitchPreference
             android:key="scrollbar"
             android:title="Enable vertical scrollbar"
             android:summary="Display vertical scroll bar on the right edge of the screen"

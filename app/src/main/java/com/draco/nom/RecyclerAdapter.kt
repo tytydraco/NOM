@@ -77,8 +77,11 @@ class RecyclerAdapter(
 
         if (info.img != null)
             holder.img.setImageDrawable(info.img)
+
         holder.img.contentDescription = info.name
-        holder.name.text = info.name
+
+        if (sharedPrefs.getBoolean("icon_labels", true))
+            holder.name.text = info.name
 
         /* Special configuration for app settings */
         if (info.id == "settings") {
