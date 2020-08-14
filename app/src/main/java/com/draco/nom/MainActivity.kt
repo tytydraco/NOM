@@ -63,14 +63,13 @@ class MainActivity : AppCompatActivity() {
         appInfoList.add(settingsButton)
 
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-
         val adapter = RecyclerAdapter(appInfoList, recycler, sharedPrefs)
         recycler.adapter = adapter
 
         val displayMetrics = resources.displayMetrics
         val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
         val iconSize = resources.getDimension(R.dimen.icon_size) / displayMetrics.density
-        val columns = (screenWidthDp / iconSize).toInt()
+        val columns = Integer.max(5, (screenWidthDp / iconSize).toInt())
         recycler.layoutManager = GridLayoutManager(this, columns)
         recycler.isVerticalScrollBarEnabled = sharedPrefs.getBoolean("scrollbar", true)
 
