@@ -104,6 +104,8 @@ class RecyclerAdapter(
         
         if (sharedPrefs.getBoolean("icon_labels", true))
             holder.name.text = info.name
+        else
+            holder.name.visibility = View.GONE
 
         /* Special configuration for app settings */
         if (info.id == "settings") {
