@@ -4,6 +4,8 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,6 +91,16 @@ class RecyclerAdapter(
 
         holder.itemView.setOnClickListener {
             doLaunch(info, sharedPrefs.getBoolean("default_external", false))
+        }
+
+        holder.itemView.setOnLongClickListener {
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.data = Uri.fromParts("package", info.id, null)
+            try {
+                recyclerView.context.startActivity(intent)
+            } catch (_: Exception) {}
+            return@setOnLongClickListener true
         }
     }
 }
