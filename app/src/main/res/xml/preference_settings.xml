@@ -13,10 +13,6 @@
             android:key="rotation"
             android:title="Enable rotation"
             android:summary="Rotate the launcher according to the device orientation" />
-        <Preference
-            android:key="restart"
-            android:title="Restart"
-            android:summary="Restart this app to apply customization preferences" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Customization">
         <SwitchPreference
