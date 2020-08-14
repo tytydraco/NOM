@@ -19,6 +19,12 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     /* Process preference clicks */
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         if (preference != null) when (preference.key) {
+            /* Restart the app */
+            "restart" -> {
+                requireActivity().finish()
+                requireActivity().startActivity(Intent(context, MainActivity::class.java))
+            }
+
             /* Take user to the Google Play details page */
             "viewStore" -> {
                 val uri = Uri.parse("market://details?id=" + requireContext().packageName)
