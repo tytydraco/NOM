@@ -46,7 +46,7 @@ class RecyclerAdapter(
     }
 
     private fun doLaunch(info: AppInfo, external: Boolean) {
-        /* Start on specified display */
+        /* Start on specified display (fallback to internal) */
         val appIntent = Intent(recyclerView.context, AppLauncher::class.java)
         appIntent.putExtra("appId", info.id)
         appIntent.putExtra("external", external)
@@ -59,7 +59,7 @@ class RecyclerAdapter(
             /* Create manual intent for internal display */
             val internalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
             internalAppIntent.putExtra("appId", info.id)
-            internalAppIntent.putExtra("external", false)
+            internalAppIntent.putExtra("internal", true)
             val internalPendingIntent = PendingIntent.getBroadcast(recyclerView.context, 1, internalAppIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             /* Create manual intent for external display */
