@@ -13,6 +13,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var recyclerAdapter: RecyclerAdapter
+
     private fun getAppList(): ArrayList<AppInfo> {
         val launcherIntent = Intent(Intent.ACTION_MAIN, null)
         launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -63,8 +65,8 @@ class MainActivity : AppCompatActivity() {
         appInfoList.add(settingsButton)
 
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val adapter = RecyclerAdapter(appInfoList, recycler, sharedPrefs)
-        recycler.adapter = adapter
+        recyclerAdapter = RecyclerAdapter(appInfoList, recycler, sharedPrefs)
+        recycler.adapter = recyclerAdapter
 
         val displayMetrics = resources.displayMetrics
         val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
@@ -74,6 +76,11 @@ class MainActivity : AppCompatActivity() {
         recycler.isVerticalScrollBarEnabled = sharedPrefs.getBoolean("scrollbar", true)
 
         createNotificationChannel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerAdapter.updateList(getAppList())
     }
 
     override fun onDestroy() {

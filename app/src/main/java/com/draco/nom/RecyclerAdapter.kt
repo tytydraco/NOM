@@ -29,6 +29,13 @@ class RecyclerAdapter(
         val name = itemView.findViewById(R.id.name) as TextView
     }
 
+    fun updateList(newAppList: ArrayList<AppInfo>) {
+        if (appList != newAppList) {
+            appList = newAppList
+            notifyDataSetChanged()
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
         return ViewHolder(view)
