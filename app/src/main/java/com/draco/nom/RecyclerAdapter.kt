@@ -2,8 +2,10 @@ package com.draco.nom
 
 import android.app.Notification
 import android.app.PendingIntent
+import android.app.Service
 import android.content.Intent
 import android.content.SharedPreferences
+import android.hardware.display.DisplayManager
 import android.net.Uri
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -44,7 +46,9 @@ class RecyclerAdapter(
         recyclerView.context.sendBroadcast(appIntent)
 
         /* Check if we should display notification */
-        if (sharedPrefs.getBoolean("show_notification", false)) {
+        val dm = recyclerView.context.getSystemService(Service.DISPLAY_SERVICE) as DisplayManager
+        val displays = dm.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION)
+        if (sharedPrefs.getBoolean("show_notification", false) && displays.isNotEmpty()) {
             /* Create manual intent for internal display */
             val internalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
             internalAppIntent.putExtra("appId", info.id)
