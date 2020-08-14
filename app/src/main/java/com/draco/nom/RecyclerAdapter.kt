@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.hardware.display.DisplayManager
 import android.net.Uri
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,9 +32,12 @@ class RecyclerAdapter(
     }
 
     fun updateList(newAppList: ArrayList<AppInfo>) {
-        if (appList != newAppList) {
-            appList = newAppList
-            notifyDataSetChanged()
+        for (i in 0 until appList.size) {
+            if (appList[i].id != newAppList[i].id) {
+                appList = newAppList
+                notifyDataSetChanged()
+                break
+            }
         }
     }
 
