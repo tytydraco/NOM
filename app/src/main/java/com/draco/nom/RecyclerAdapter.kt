@@ -8,7 +8,6 @@ import android.content.SharedPreferences
 import android.hardware.display.DisplayManager
 import android.net.Uri
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
