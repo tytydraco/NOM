@@ -75,6 +75,8 @@ class MainActivity : AppCompatActivity() {
         createNotificationChannel()
     }
 
+    override fun onBackPressed() {}
+
     override fun onResume() {
         super.onResume()
         recyclerAdapter.updateList(getAppList())
