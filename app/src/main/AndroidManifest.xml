@@ -10,8 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-            android:stateNotNeeded="true">
+        <activity android:name="com.draco.nom.MainActivity" android:theme="@style/LauncherTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.draco.nom.SettingsActivity" />
+        <receiver android:name="com.draco.nom.AppLauncher" />
     </application>
 
 </manifest>

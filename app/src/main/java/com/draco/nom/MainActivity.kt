@@ -1,18 +1,18 @@
 package com.draco.nom
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var recycler: RecyclerView
-    private lateinit var adapter: RecyclerAdapter
-    private lateinit var appInfoList: ArrayList<AppInfo>
-
     private fun getAppList(): ArrayList<AppInfo> {
         val launcherIntent = Intent(Intent.ACTION_MAIN, null)
         launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -40,15 +40,31 @@ class MainActivity : AppCompatActivity() {
         return appList
     }
 
+    private fun createNotificationChannel() {
+        val channel = NotificationChannel(notificationChannelId, "Refocus", NotificationManager.IMPORTANCE_HIGH)
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recycler = findViewById(R.id.recycler)
+        val recycler = findViewById<RecyclerView>(R.id.recycler)
         recycler.setItemViewCacheSize(250)
 
-        appInfoList = getAppList()
-        adapter = RecyclerAdapter(appInfoList, recycler, packageManager)
+        val appInfoList = getAppList()
+
+        val settingsButton = AppInfo()
+        settingsButton.id = "settings"
+        settingsButton.name = "Settings"
+        settingsButton.img = packageManager.getApplicationIcon(packageName)
+
+        appInfoList.add(settingsButton)
+
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+        val adapter = RecyclerAdapter(appInfoList, recycler, sharedPrefs)
         recycler.adapter = adapter
 
         val displayMetrics = resources.displayMetrics
@@ -56,20 +72,13 @@ class MainActivity : AppCompatActivity() {
         val iconSize = resources.getDimension(R.dimen.icon_size) / displayMetrics.density
         val columns = (screenWidthDp / iconSize).toInt()
         recycler.layoutManager = GridLayoutManager(this, columns)
+
+        createNotificationChannel()
     }
 
-    private fun refreshAppList() {
-        val newAppInfoList = getAppList()
-        if (appInfoList != newAppInfoList)
-            adapter.updateList(newAppInfoList)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        refreshAppList()
-    }
-
-    override fun onBackPressed() {
-        refreshAppList()
+    override fun onDestroy() {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancelAll()
+        super.onDestroy()
     }
 }

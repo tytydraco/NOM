@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Settings">
+        <SwitchPreference
+            android:key="default_external"
+            android:title="Default to external display"
+            android:summary="Open apps on the external display by default" />
+        <SwitchPreference
+            android:key="show_notification"
+            android:title="Enable ongoing notification"
+            android:summary="Display non-dismissible notification to control task display placement" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="About">
+        <Preference
+            android:key="viewStore"
+            android:title="View store page"
+            android:summary="View this app on the Google Play Store" />
+        <Preference
+            android:key="github"
+            android:title="View GitHub source"
+            android:summary="View the source code for this app" />
+        <Preference
+            android:key="contact"
+            android:title="Contact"
+            android:summary="Send me an email for support or feedback" />
+        <Preference
+            android:key="licenses"
+            android:title="Licenses"
+            android:summary="View the open source licenses used by this app" />
+    </PreferenceCategory>
+</PreferenceScreen>
