@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         val iconSize = resources.getDimension(R.dimen.icon_size) / displayMetrics.density
         val columns = (screenWidthDp / iconSize).toInt()
         recycler.layoutManager = GridLayoutManager(this, columns)
+        recycler.isVerticalScrollBarEnabled = sharedPrefs.getBoolean("scrollbar", true)
 
         createNotificationChannel()
     }
