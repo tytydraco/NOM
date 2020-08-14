@@ -45,6 +45,10 @@ class RecyclerAdapter(
         return appList.size
     }
 
+    override fun getItemId(position: Int): Long {
+        return appList[position].hashCode().toLong()
+    }
+
     private fun doLaunch(info: AppInfo, external: Boolean) {
         /* Start on specified display (fallback to internal) */
         val appIntent = Intent(recyclerView.context, AppLauncher::class.java)

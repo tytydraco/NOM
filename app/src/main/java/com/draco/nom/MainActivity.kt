@@ -64,10 +64,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val recycler = findViewById<RecyclerView>(R.id.recycler)
-        recycler.setItemViewCacheSize(250)
 
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
         recyclerAdapter = RecyclerAdapter(getAppList(), recycler, sharedPrefs)
+        recyclerAdapter.setHasStableIds(true)
 
         val displayMetrics = resources.displayMetrics
         val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         val columns = Integer.max(5, (screenWidthDp / iconSize).toInt())
 
         with (recycler) {
+            setItemViewCacheSize(250)
             adapter = recyclerAdapter
             layoutManager = GridLayoutManager(context, columns)
             isVerticalScrollBarEnabled = sharedPrefs.getBoolean("scrollbar", true)
