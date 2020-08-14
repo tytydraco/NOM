@@ -39,6 +39,12 @@ class MainActivity : AppCompatActivity() {
             it.name.toLowerCase(Locale.getDefault())
         }
 
+        val settingsButton = AppInfo()
+        settingsButton.id = "settings"
+        settingsButton.name = "Settings"
+        settingsButton.img = packageManager.getApplicationIcon(packageName)
+        appList.add(settingsButton)
+
         return appList
     }
 
@@ -55,17 +61,8 @@ class MainActivity : AppCompatActivity() {
         val recycler = findViewById<RecyclerView>(R.id.recycler)
         recycler.setItemViewCacheSize(250)
 
-        val appInfoList = getAppList()
-
-        val settingsButton = AppInfo()
-        settingsButton.id = "settings"
-        settingsButton.name = "Settings"
-        settingsButton.img = packageManager.getApplicationIcon(packageName)
-
-        appInfoList.add(settingsButton)
-
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-        recyclerAdapter = RecyclerAdapter(appInfoList, recycler, sharedPrefs)
+        recyclerAdapter = RecyclerAdapter(getAppList(), recycler, sharedPrefs)
         recycler.adapter = recyclerAdapter
 
         val displayMetrics = resources.displayMetrics
