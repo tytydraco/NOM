@@ -48,8 +48,11 @@ class RecyclerAdapter(
     private fun doLaunch(info: AppInfo, external: Boolean) {
         /* Start on specified display (fallback to internal) */
         val appIntent = Intent(recyclerView.context, AppLauncher::class.java)
-        appIntent.putExtra("appId", info.id)
-        appIntent.putExtra("external", external)
+        with (appIntent) {
+            putExtra("appId", info.id)
+            putExtra("external", external)
+        }
+
         recyclerView.context.sendBroadcast(appIntent)
 
         /* Check if we should display notification */
@@ -58,14 +61,18 @@ class RecyclerAdapter(
         if (sharedPrefs.getBoolean("show_notification", false) && displays.isNotEmpty()) {
             /* Create manual intent for internal display */
             val internalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
-            internalAppIntent.putExtra("appId", info.id)
-            internalAppIntent.putExtra("internal", true)
+            with (internalAppIntent) {
+                putExtra("appId", info.id)
+                putExtra("internal", true)
+            }
             val internalPendingIntent = PendingIntent.getBroadcast(recyclerView.context, 1, internalAppIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             /* Create manual intent for external display */
             val externalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
-            externalAppIntent.putExtra("appId", info.id)
-            externalAppIntent.putExtra("external", true)
+            with (externalAppIntent) {
+                putExtra("appId", info.id)
+                putExtra("external", true)
+            }
             val externalPendingIntent = PendingIntent.getBroadcast(recyclerView.context, 2, externalAppIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             /* Create notification to resume */

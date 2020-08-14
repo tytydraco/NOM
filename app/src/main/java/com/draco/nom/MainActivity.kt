@@ -22,15 +22,17 @@ class MainActivity : AppCompatActivity() {
         val activities = packageManager.queryIntentActivities(launcherIntent, 0)
         val appList = ArrayList<AppInfo>()
         for (app in activities) {
-            val id = app.activityInfo.packageName
+            val appId = app.activityInfo.packageName
 
-            if (id == packageName)
+            if (appId == packageName)
                 continue
 
             val info = AppInfo()
-            info.id = id
-            info.name = app.activityInfo.loadLabel(packageManager).toString()
-            info.img = packageManager.getApplicationIcon(id)
+            with (info) {
+                id = appId
+                name = app.activityInfo.loadLabel(packageManager).toString()
+                img = packageManager.getApplicationIcon(appId)
+            }
 
             appList.add(info)
         }
@@ -40,9 +42,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         val settingsButton = AppInfo()
-        settingsButton.id = "settings"
-        settingsButton.name = "Settings"
-        settingsButton.img = packageManager.getApplicationIcon(packageName)
+        with (settingsButton) {
+            id = "settings"
+            name = "Settings"
+            img = packageManager.getApplicationIcon(packageName)
+        }
+
         appList.add(settingsButton)
 
         return appList
@@ -63,14 +68,17 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
         recyclerAdapter = RecyclerAdapter(getAppList(), recycler, sharedPrefs)
-        recycler.adapter = recyclerAdapter
 
         val displayMetrics = resources.displayMetrics
         val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
         val iconSize = resources.getDimension(R.dimen.icon_size) / displayMetrics.density
         val columns = Integer.max(5, (screenWidthDp / iconSize).toInt())
-        recycler.layoutManager = GridLayoutManager(this, columns)
-        recycler.isVerticalScrollBarEnabled = sharedPrefs.getBoolean("scrollbar", true)
+
+        with (recycler) {
+            adapter = recyclerAdapter
+            layoutManager = GridLayoutManager(context, columns)
+            isVerticalScrollBarEnabled = sharedPrefs.getBoolean("scrollbar", true)
+        }
 
         createNotificationChannel()
     }

@@ -7,9 +7,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
-
-
-
 class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     /* Setup our preference screen */
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
