@@ -7,8 +7,8 @@
             android:summary="Open apps on the external display by default" />
         <SwitchPreference
             android:key="show_notification"
-            android:title="Enable ongoing notification"
-            android:summary="Display non-dismissible notification to control task display placement" />
+            android:title="Enable task refocus notification"
+            android:summary="Display notification to control task display placement" />
         <Preference
             android:key="restart"
             android:title="Restart"

@@ -76,7 +76,6 @@ class RecyclerAdapter(
                 .setContentTitle(info.name)
                 .setContentText("Refocus or move ${info.name} between displays.")
                 .setLargeIcon(info.img?.toBitmap())
-                .setOngoing(true)
                 .addAction(R.drawable.ic_baseline_devices_24, "Internal", internalPendingIntent)
                 .addAction(R.drawable.ic_baseline_devices_24, "External", externalPendingIntent)
             NotificationManagerCompat.from(recyclerView.context).notify(0, notificationBuilder.build())
