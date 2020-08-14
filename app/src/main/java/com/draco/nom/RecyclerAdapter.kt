@@ -89,6 +89,7 @@ class RecyclerAdapter(
         if (info.id == "settings") {
             holder.itemView.setOnClickListener {
                 val intent = Intent(recyclerView.context, SettingsActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 recyclerView.context.startActivity(intent)
             }
             return
