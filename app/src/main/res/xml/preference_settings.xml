@@ -9,6 +9,10 @@
             android:key="show_notification"
             android:title="Enable task refocus notification"
             android:summary="Display notification to control task display placement" />
+        <SwitchPreference
+            android:key="rotation"
+            android:title="Enable rotation"
+            android:summary="Rotate the launcher according to the device orientation" />
         <Preference
             android:key="restart"
             android:title="Restart"

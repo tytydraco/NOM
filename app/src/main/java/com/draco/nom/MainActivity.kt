@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
@@ -82,6 +83,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         createNotificationChannel()
+
+        if (!sharedPrefs.getBoolean("rotation", false)) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
     }
 
     override fun onBackPressed() {}
