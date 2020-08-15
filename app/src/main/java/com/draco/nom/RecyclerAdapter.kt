@@ -3,14 +3,17 @@ package com.draco.nom
 import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.hardware.display.DisplayManager
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.NotificationCompat
@@ -54,11 +57,19 @@ class RecyclerAdapter(
     }
 
     private fun doLaunch(info: AppInfo, external: Boolean) {
+        val defaultDisplayId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+            recyclerView.context.display!!.displayId
+        else {
+            val wm = recyclerView.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            wm.defaultDisplay.displayId
+        }
+
         /* Start on specified display (fallback to internal) */
         val appIntent = Intent(recyclerView.context, AppLauncher::class.java)
         with (appIntent) {
             putExtra("appId", info.id)
             putExtra("external", external)
+            putExtra("displayId", defaultDisplayId)
         }
 
         recyclerView.context.sendBroadcast(appIntent)

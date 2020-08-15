@@ -8,10 +8,9 @@ import android.content.Intent
 import android.hardware.display.DisplayManager
 
 class AppLauncher: BroadcastReceiver() {
-    private fun launch(context: Context, displayId: Int?, intent: Intent): Boolean {
+    private fun launch(context: Context, displayId: Int, intent: Intent): Boolean {
         val options = ActivityOptions.makeBasic()
-        if (displayId != null)
-            options.launchDisplayId = displayId
+        options.launchDisplayId = displayId
         try {
             context.startActivity(intent, options.toBundle())
             return true
@@ -56,10 +55,13 @@ class AppLauncher: BroadcastReceiver() {
             }
         }
 
+        /* Prefer to place on internal display (as opposed to default display) */
+        val defaultDisplayId = intent.getIntExtra("displayId", 0)
+
         /* Launch on internal or default display */
         if (internal)
             launch(context, 0, appIntent)
         else
-            launch(context, null, appIntent)
+            launch(context, defaultDisplayId, appIntent)
     }
 }
