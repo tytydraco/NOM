@@ -114,17 +114,16 @@ class RecyclerAdapter(
             holder.name.visibility = View.GONE
 
         /* Special configuration for app settings */
-        if (info.id == "settings") {
+        if (info.id == recyclerView.context.packageName) {
             holder.itemView.setOnClickListener {
                 val intent = Intent(recyclerView.context, SettingsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
                 recyclerView.context.startActivity(intent)
             }
-            return
-        }
-
-        holder.itemView.setOnClickListener {
-            doLaunch(info, sharedPrefs.getBoolean("default_external", false))
+        } else {
+            holder.itemView.setOnClickListener {
+                doLaunch(info, sharedPrefs.getBoolean("default_external", false))
+            }
         }
 
         holder.itemView.setOnLongClickListener {

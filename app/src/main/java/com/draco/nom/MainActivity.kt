@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         val settingsButton = AppInfo()
         with (settingsButton) {
-            id = "settings"
+            id = packageName
             name = "Settings"
             img = packageManager.getApplicationIcon(packageName)
         }
