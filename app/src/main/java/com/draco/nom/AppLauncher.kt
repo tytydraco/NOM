@@ -55,7 +55,7 @@ class AppLauncher: BroadcastReceiver() {
             }
         }
 
-        /* Prefer to place on internal display (as opposed to default display) */
+        /* Place on the default display */
         val defaultDisplayId = intent.getIntExtra("displayId", 0)
 
         /* Launch on internal or default display */
