@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Display
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
@@ -86,7 +87,8 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel()
 
-        if (!sharedPrefs.getBoolean("rotation", false)) {
+        if (getDefaultDisplay(this) == Display.DEFAULT_DISPLAY &&
+            !sharedPrefs.getBoolean("rotation", false)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 

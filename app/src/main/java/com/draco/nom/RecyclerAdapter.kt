@@ -57,12 +57,7 @@ class RecyclerAdapter(
     }
 
     private fun doLaunch(info: AppInfo, external: Boolean) {
-        val defaultDisplayId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-            recyclerView.context.display!!.displayId
-        else {
-            val wm = recyclerView.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            wm.defaultDisplay.displayId
-        }
+        val defaultDisplayId = getDefaultDisplay(recyclerView.context)
 
         /* Start on specified display (fallback to internal) */
         val appIntent = Intent(recyclerView.context, AppLauncher::class.java)
