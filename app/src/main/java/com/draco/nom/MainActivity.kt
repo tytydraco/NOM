@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Display
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
@@ -67,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val container = findViewById<LinearLayout>(R.id.container)
         val recycler = findViewById<RecyclerView>(R.id.recycler)
 
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
@@ -97,7 +99,7 @@ class MainActivity : AppCompatActivity() {
             val backgroundColor = Color.parseColor(backgroundColorString)
             window.statusBarColor = backgroundColor
             window.navigationBarColor = backgroundColor
-            recycler.setBackgroundColor(backgroundColor)
+            container.setBackgroundColor(backgroundColor)
         } catch (_: Exception) {}
     }
 
