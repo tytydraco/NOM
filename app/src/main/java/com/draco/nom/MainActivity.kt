@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         val columns = Integer.max(5, (screenWidthDp / iconSize).toInt())
 
         with (recycler) {
-            setItemViewCacheSize(250)
+            setItemViewCacheSize(1000)
             adapter = recyclerAdapter
             layoutManager = GridLayoutManager(context, columns)
             isVerticalScrollBarEnabled = sharedPrefs.getBoolean("scrollbar", true)
