@@ -16,9 +16,9 @@ class SettingsActivity : AppCompatActivity() {
             .commit()
     }
 
-    override fun onPause() {
+    override fun onDestroy() {
+        super.onDestroy()
         finishAffinity()
         startActivity(Intent(this, MainActivity::class.java))
-        super.onPause()
     }
 }
