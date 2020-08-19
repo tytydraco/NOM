@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:stateNotNeeded="true"
-        android:clearTaskOnLaunch="true">
+        android:clearTaskOnLaunch="true"
+        android:resumeWhilePausing="true">
         <activity android:name="com.draco.nom.MainActivity"
             android:theme="@style/LauncherTheme"
             android:excludeFromRecents="true">
