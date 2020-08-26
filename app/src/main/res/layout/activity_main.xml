@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/recycler"
-        android:fadingEdgeLength="50dp"
+        android:fadingEdgeLength="20dp"
         android:requiresFadingEdge="vertical"
         android:scrollbars="vertical"
         tools:context=".MainActivity" />
