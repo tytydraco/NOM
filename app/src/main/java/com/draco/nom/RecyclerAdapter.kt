@@ -18,6 +18,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class RecyclerAdapter(
         private var appList: ArrayList<AppInfo>,
@@ -103,10 +104,14 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = appList[position]
 
-        if (info.img != null)
-            Glide.with(holder.img)
-                .load(info.img)
-                .into(holder.img)
+        if (info.img != null) {
+            val img = Glide.with(holder.img).load(info.img)
+
+            if (sharedPrefs.getBoolean("circle_crop", true))
+                img.circleCrop()
+
+            img.into(holder.img)
+        }
         
         if (sharedPrefs.getBoolean("icon_labels", true))
             holder.name.text = info.name

@@ -20,6 +20,11 @@
             android:title="Enable icon labels"
             android:summary="Display app names below their icon"
             android:defaultValue="true" />
+        <SwitchPreference
+            android:key="circle_crop"
+            android:title="Enable circle crop"
+            android:summary="Cut icons into uniform circles"
+            android:defaultValue="false" />
         <EditTextPreference
             android:key="background_color"
             android:title="Background color"
