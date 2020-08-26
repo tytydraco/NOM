@@ -13,6 +13,5 @@
         android:id="@+id/recycler"
         android:fadingEdgeLength="20dp"
         android:requiresFadingEdge="vertical"
-        android:scrollbars="vertical"
         tools:context=".MainActivity" />
 </LinearLayout>

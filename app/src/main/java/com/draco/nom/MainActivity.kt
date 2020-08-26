@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity() {
             setItemViewCacheSize(1000)
             adapter = recyclerAdapter
             layoutManager = GridLayoutManager(context, columns)
-            isVerticalScrollBarEnabled = sharedPrefs.getBoolean("scrollbar", true)
         }
 
         createNotificationChannel()
