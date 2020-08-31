@@ -30,8 +30,8 @@ class AppLauncher: BroadcastReceiver() {
         /* Prefer to place on internal display (as opposed to default display) */
         val internal = intent.getBooleanExtra("internal", false)
 
-        val appIntent = context.packageManager.getLaunchIntentForPackage(appId)
-        appIntent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        val appIntent = context.packageManager.getLaunchIntentForPackage(appId) ?: return
+        appIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
         if (external) {
             val dm = context.getSystemService(Service.DISPLAY_SERVICE) as DisplayManager
