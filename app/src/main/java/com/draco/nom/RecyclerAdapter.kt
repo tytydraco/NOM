@@ -107,7 +107,7 @@ class RecyclerAdapter(
         if (info.img != null) {
             val img = Glide.with(holder.img).load(info.img)
 
-            if (sharedPrefs.getBoolean("circle_crop", true))
+            if (sharedPrefs.getBoolean("circle_crop", false))
                 img.circleCrop()
 
             img.into(holder.img)
