@@ -39,19 +39,14 @@ class AppLauncher: BroadcastReceiver() {
 
             if (displays.isNotEmpty()) {
                 /* Output to first usable display */
-                var success = false
                 for (display in displays.reversed()) {
                     if (!display.isValid)
                         continue
 
-                    success = launch(context, display.displayId, appIntent)
-                    if (success)
-                        break
+                    /* Exit if we found a working display */
+                    if (launch(context, display.displayId, appIntent))
+                        return
                 }
-
-                /* Exit if we found a working display */
-                if (success)
-                    return
             }
         }
 
