@@ -104,20 +104,6 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = appList[position]
 
-        if (info.img != null) {
-            val img = Glide.with(holder.img).load(info.img)
-
-            if (sharedPrefs.getBoolean("circle_crop", false))
-                img.circleCrop()
-
-            img.into(holder.img)
-        }
-        
-        if (sharedPrefs.getBoolean("icon_labels", true))
-            holder.name.text = info.name
-        else
-            holder.name.visibility = View.GONE
-
         /* Special configuration for app settings */
         if (info.id == recyclerView.context.packageName) {
             holder.itemView.setOnClickListener {
@@ -140,5 +126,20 @@ class RecyclerAdapter(
             } catch (_: Exception) {}
             return@setOnLongClickListener true
         }
+
+        /* Setup app icons and labels */
+        if (info.img != null) {
+            val img = Glide.with(holder.img).load(info.img)
+
+            if (sharedPrefs.getBoolean("circle_crop", false))
+                img.circleCrop()
+
+            img.into(holder.img)
+        }
+
+        if (sharedPrefs.getBoolean("icon_labels", true))
+            holder.name.text = info.name
+        else
+            holder.name.visibility = View.GONE
     }
 }
