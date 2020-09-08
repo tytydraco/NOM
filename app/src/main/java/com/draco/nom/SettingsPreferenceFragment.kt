@@ -17,7 +17,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         if (preference != null) when (preference.key) {
             /* Take user to the Google Play details page */
-            "viewStore" -> {
+            getString(R.string.pref_view_store) -> {
                 val uri = Uri.parse("market://details?id=" + requireContext().packageName)
                 val intent = Intent(Intent.ACTION_VIEW, uri)
 
@@ -25,7 +25,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
 
             /* Take user to the source code */
-            "github" -> {
+            getString(R.string.pref_github) -> {
                 val intent = Intent(Intent.ACTION_VIEW)
                     .setData(Uri.parse("https://github.com/tytydraco/NOM"))
 
@@ -33,7 +33,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
 
             /* Send the developer an email */
-            "contact" -> {
+            getString(R.string.pref_contact) -> {
                 val intent = Intent(Intent.ACTION_SENDTO)
                     .setData(Uri.parse("mailto:tylernij@gmail.com?subject=NOM%20Feedback"))
 
@@ -41,7 +41,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
 
             /* Show open source licenses */
-            "licenses" -> {
+            getString(R.string.pref_licenses) -> {
                 startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
             }
 

@@ -70,7 +70,7 @@ class RecyclerAdapter(
         /* Check if we should display notification */
         val dm = recyclerView.context.getSystemService(Service.DISPLAY_SERVICE) as DisplayManager
         val displays = dm.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION)
-        if (sharedPrefs.getBoolean("show_notification", false) && displays.isNotEmpty()) {
+        if (sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_show_notification), false) && displays.isNotEmpty()) {
             /* Create manual intent for internal display */
             val internalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
             with (internalAppIntent) {
@@ -113,7 +113,7 @@ class RecyclerAdapter(
             }
         } else {
             holder.itemView.setOnClickListener {
-                doLaunch(info, sharedPrefs.getBoolean("default_external", false))
+                doLaunch(info, sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_default_external), false))
             }
         }
 
@@ -131,13 +131,13 @@ class RecyclerAdapter(
         if (info.img != null) {
             val img = Glide.with(holder.img).load(info.img)
 
-            if (sharedPrefs.getBoolean("circle_crop", false))
+            if (sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_circle_crop), false))
                 img.circleCrop()
 
             img.into(holder.img)
         }
 
-        if (sharedPrefs.getBoolean("icon_labels", true))
+        if (sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_icon_labels), true))
             holder.name.text = info.name
         else
             holder.name.visibility = View.GONE

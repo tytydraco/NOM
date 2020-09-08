@@ -2,50 +2,50 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Settings">
         <SwitchPreference
-            android:key="default_external"
+            android:key="@string/pref_default_external"
             android:title="Default to external display"
             android:summary="Open apps on the external display by default" />
         <SwitchPreference
-            android:key="show_notification"
+            android:key="@string/pref_show_notification"
             android:title="Enable task refocus notification"
             android:summary="Display notification to control task display placement" />
         <SwitchPreference
-            android:key="rotation"
+            android:key="@string/pref_rotation"
             android:title="Enable rotation"
             android:summary="Rotate the launcher according to the device orientation" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Customization">
         <SwitchPreference
-            android:key="icon_labels"
+            android:key="@string/pref_icon_labels"
             android:title="Enable icon labels"
             android:summary="Display app names below their icon"
             android:defaultValue="true" />
         <SwitchPreference
-            android:key="circle_crop"
+            android:key="@string/pref_circle_crop"
             android:title="Enable circle crop"
             android:summary="Cut icons into uniform circles"
             android:defaultValue="false" />
         <EditTextPreference
-            android:key="background_color"
+            android:key="@string/pref_background_color"
             android:title="Background color"
             android:summary="Hex color including alpha for window backgrounds"
             android:defaultValue="#88000000" />
     </PreferenceCategory>
     <PreferenceCategory android:title="About">
         <Preference
-            android:key="viewStore"
+            android:key="@string/pref_view_store"
             android:title="View store page"
             android:summary="View this app on the Google Play Store" />
         <Preference
-            android:key="github"
+            android:key="@string/pref_github"
             android:title="View GitHub source"
             android:summary="View the source code for this app" />
         <Preference
-            android:key="contact"
+            android:key="@string/pref_contact"
             android:title="Contact"
             android:summary="Send me an email for support or feedback" />
         <Preference
-            android:key="licenses"
+            android:key="@string/pref_licenses"
             android:title="Licenses"
             android:summary="View the open source licenses used by this app" />
     </PreferenceCategory>

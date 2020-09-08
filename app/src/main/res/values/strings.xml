@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">NOM</string>
+
+    <string name="pref_default_external">default_external</string>
+    <string name="pref_show_notification">show_notification</string>
+    <string name="pref_rotation">rotation</string>
+
+    <string name="pref_icon_labels">icon_labels</string>
+    <string name="pref_circle_crop">circle_crop</string>
+    <string name="pref_background_color">background_color</string>
+
+    <string name="pref_view_store">view_store</string>
+    <string name="pref_github">github</string>
+    <string name="pref_contact">contact</string>
+    <string name="pref_licenses">licenses</string>
 </resources>
