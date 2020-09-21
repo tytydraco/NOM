@@ -63,6 +63,7 @@ class RecyclerAdapter(
             putExtra("appId", info.id)
             putExtra("external", external)
             putExtra("displayId", defaultDisplayId)
+            setFlags(Intent.FLAG_RECEIVER_FOREGROUND)
         }
 
         recyclerView.context.sendBroadcast(appIntent)
@@ -76,6 +77,7 @@ class RecyclerAdapter(
             with (internalAppIntent) {
                 putExtra("appId", info.id)
                 putExtra("internal", true)
+                setFlags(Intent.FLAG_RECEIVER_FOREGROUND)
             }
             val internalPendingIntent = PendingIntent.getBroadcast(recyclerView.context, 1, internalAppIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
@@ -84,6 +86,7 @@ class RecyclerAdapter(
             with (externalAppIntent) {
                 putExtra("appId", info.id)
                 putExtra("external", true)
+                setFlags(Intent.FLAG_RECEIVER_FOREGROUND)
             }
             val externalPendingIntent = PendingIntent.getBroadcast(recyclerView.context, 2, externalAppIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
