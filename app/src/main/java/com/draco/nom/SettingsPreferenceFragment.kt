@@ -16,6 +16,13 @@ class SettingsPreferenceFragment: PreferenceFragmentCompat() {
     /* Process preference clicks */
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         if (preference != null) when (preference.key) {
+            /* Refresh the launcher */
+            getString(R.string.pref_restart) -> {
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                requireActivity().finishAffinity()
+                startActivity(intent)
+            }
+
             /* Take user to the Google Play details page */
             getString(R.string.pref_view_store) -> {
                 val uri = Uri.parse("market://details?id=" + requireContext().packageName)

@@ -1,6 +1,5 @@
 package com.draco.nom
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
@@ -14,11 +13,5 @@ class SettingsActivity: AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.settingsActivity, SettingsPreferenceFragment())
             .commit()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finishAffinity()
-        startActivity(Intent(this, MainActivity::class.java))
     }
 }

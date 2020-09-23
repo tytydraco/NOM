@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">NOM</string>
 
+    <string name="pref_restart">restart</string>
     <string name="pref_default_external">default_external</string>
     <string name="pref_show_notification">show_notification</string>
     <string name="pref_rotation">rotation</string>
