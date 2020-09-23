@@ -1,11 +1,7 @@
 package com.draco.nom
 
-import android.app.Notification
-import android.app.PendingIntent
-import android.app.Service
 import android.content.Intent
 import android.content.SharedPreferences
-import android.hardware.display.DisplayManager
 import android.net.Uri
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -13,12 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 
 class RecyclerAdapter(
         private var appList: ArrayList<AppInfo>,
@@ -67,41 +59,6 @@ class RecyclerAdapter(
         }
 
         recyclerView.context.sendBroadcast(appIntent)
-
-        /* Check if we should display notification */
-        val dm = recyclerView.context.getSystemService(Service.DISPLAY_SERVICE) as DisplayManager
-        val displays = dm.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION)
-        if (sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_show_notification), false) && displays.isNotEmpty()) {
-            /* Create manual intent for internal display */
-            val internalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
-            with (internalAppIntent) {
-                putExtra("appId", info.id)
-                putExtra("internal", true)
-                setFlags(Intent.FLAG_RECEIVER_FOREGROUND)
-            }
-            val internalPendingIntent = PendingIntent.getBroadcast(recyclerView.context, 1, internalAppIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-            /* Create manual intent for external display */
-            val externalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
-            with (externalAppIntent) {
-                putExtra("appId", info.id)
-                putExtra("external", true)
-                setFlags(Intent.FLAG_RECEIVER_FOREGROUND)
-            }
-            val externalPendingIntent = PendingIntent.getBroadcast(recyclerView.context, 2, externalAppIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-            /* Create notification to resume */
-            val notificationBuilder = NotificationCompat.Builder(recyclerView.context, notificationChannelId)
-                .setSmallIcon(R.drawable.ic_baseline_devices_24)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(Notification.CATEGORY_SYSTEM)
-                .setContentTitle("Refocus ${info.name}")
-                .setContentText("Move ${info.name} between displays.")
-                .setLargeIcon(info.img?.toBitmap())
-                .addAction(R.drawable.ic_baseline_devices_24, "Internal", internalPendingIntent)
-                .addAction(R.drawable.ic_baseline_devices_24, "External", externalPendingIntent)
-            NotificationManagerCompat.from(recyclerView.context).notify(0, notificationBuilder.build())
-        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

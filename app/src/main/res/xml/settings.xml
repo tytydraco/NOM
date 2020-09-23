@@ -7,11 +7,6 @@
             android:title="Default to external display"
             android:summary="Open apps on the external display by default" />
         <SwitchPreference
-            android:icon="@drawable/ic_baseline_notifications_24"
-            android:key="@string/pref_show_notification"
-            android:title="Enable task refocus notification"
-            android:summary="Display notification to control task display placement" />
-        <SwitchPreference
             android:icon="@drawable/ic_baseline_screen_rotation_24"
             android:key="@string/pref_rotation"
             android:title="Enable rotation"

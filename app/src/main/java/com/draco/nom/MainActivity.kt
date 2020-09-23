@@ -1,6 +1,5 @@
 package com.draco.nom
 
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
@@ -13,11 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
     private lateinit var recyclerAdapter: RecyclerAdapter
 
     private fun getAppList(): ArrayList<AppInfo> {
@@ -58,12 +56,6 @@ class MainActivity : AppCompatActivity() {
         return appList
     }
 
-    private fun createNotificationChannel() {
-        val channel = NotificationChannel(notificationChannelId, "Refocus", NotificationManager.IMPORTANCE_HIGH)
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -85,9 +77,7 @@ class MainActivity : AppCompatActivity() {
             adapter = recyclerAdapter
             layoutManager = GridLayoutManager(context, columns)
         }
-
-        createNotificationChannel()
-
+        
         if (getDefaultDisplay(this) == Display.DEFAULT_DISPLAY &&
             !sharedPrefs.getBoolean(getString(R.string.pref_rotation), false)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
