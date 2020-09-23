@@ -4,59 +4,59 @@
         <Preference
             android:icon="@drawable/ic_baseline_refresh_24"
             android:key="@string/pref_restart"
-            android:title="Restart launcher"
-            android:summary="Apply new changes to the launcher" />
+            android:title="@string/pref_restart_title"
+            android:summary="@string/pref_restart_summary" />
         <SwitchPreference
             android:icon="@drawable/ic_baseline_tv_24"
             android:key="@string/pref_default_external"
-            android:title="Default to external display"
-            android:summary="Open apps on the external display by default" />
+            android:title="@string/pref_default_external_title"
+            android:summary="@string/pref_default_external_summary" />
         <SwitchPreference
             android:icon="@drawable/ic_baseline_screen_rotation_24"
             android:key="@string/pref_rotation"
-            android:title="Enable rotation"
-            android:summary="Rotate the launcher according to the device orientation" />
+            android:title="@string/pref_rotation_title"
+            android:summary="@string/pref_rotation_summary" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Customization">
         <SwitchPreference
             android:icon="@drawable/ic_baseline_short_text_24"
             android:key="@string/pref_icon_labels"
-            android:title="Enable icon labels"
-            android:summary="Display app names below their icon"
+            android:title="@string/pref_icon_labels_title"
+            android:summary="@string/pref_icon_labels_summary"
             android:defaultValue="true" />
         <SwitchPreference
             android:icon="@drawable/ic_baseline_crop_24"
             android:key="@string/pref_circle_crop"
-            android:title="Enable circle crop"
-            android:summary="Cut icons into uniform circles"
+            android:title="@string/pref_circle_crop_title"
+            android:summary="@string/pref_circle_crop_summary"
             android:defaultValue="false" />
         <EditTextPreference
             android:icon="@drawable/ic_baseline_color_lens_24"
             android:key="@string/pref_background_color"
-            android:title="Background color"
-            android:summary="Hex color including alpha for window backgrounds"
+            android:title="@string/pref_background_color_title"
+            android:summary="@string/pref_background_color_summary"
             android:defaultValue="#88000000" />
     </PreferenceCategory>
     <PreferenceCategory android:title="About">
         <Preference
             android:icon="@drawable/ic_baseline_person_24"
-            android:title="Developer"
-            android:summary="tytydraco (Tyler Nijmeh)"
-            android:key="@string/pref_developer"/>
+            android:key="@string/pref_developer"
+            android:title="@string/pref_developer_title"
+            android:summary="@string/pref_developer_summary" />
         <Preference
             android:icon="@drawable/ic_baseline_code_24"
-            android:key="@string/pref_github"
-            android:title="View GitHub source"
-            android:summary="View the source code for this app" />
+            android:key="@string/pref_source_code"
+            android:title="@string/pref_source_code_title"
+            android:summary="@string/pref_source_code_summary" />
         <Preference
             android:icon="@drawable/ic_baseline_email_24"
             android:key="@string/pref_contact"
-            android:title="Contact"
-            android:summary="Send me an email for support or feedback" />
+            android:title="@string/pref_contact_title"
+            android:summary="@string/pref_contact_summary" />
         <Preference
             android:icon="@drawable/ic_baseline_insert_drive_file_24"
             android:key="@string/pref_licenses"
-            android:title="Licenses"
-            android:summary="View the open source licenses used by this app" />
+            android:title="@string/pref_licenses_title"
+            android:summary="@string/pref_licenses_summary" />
     </PreferenceCategory>
 </PreferenceScreen>

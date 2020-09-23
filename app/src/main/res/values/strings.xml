@@ -2,15 +2,42 @@
     <string name="app_name">NOM</string>
 
     <string name="pref_restart">restart</string>
+    <string name="pref_restart_title">Restart</string>
+    <string name="pref_restart_summary">Apply new changes to the launcher</string>
+
     <string name="pref_default_external">default_external</string>
+    <string name="pref_default_external_title">Default to external display</string>
+    <string name="pref_default_external_summary">Open apps on the external display by default</string>
+
     <string name="pref_rotation">rotation</string>
+    <string name="pref_rotation_title">Rotation</string>
+    <string name="pref_rotation_summary">Enable home screen rotation</string>
 
     <string name="pref_icon_labels">icon_labels</string>
+    <string name="pref_icon_labels_title">Icon labels</string>
+    <string name="pref_icon_labels_summary">Show app names under the icon</string>
+
     <string name="pref_circle_crop">circle_crop</string>
+    <string name="pref_circle_crop_title">Circle crop</string>
+    <string name="pref_circle_crop_summary">Crop icons to a circle shape</string>
+
     <string name="pref_background_color">background_color</string>
+    <string name="pref_background_color_title">Background color</string>
+    <string name="pref_background_color_summary">Set the home screen background color, including transparency</string>
 
     <string name="pref_developer">developer</string>
-    <string name="pref_github">github</string>
+    <string name="pref_developer_title">Developer</string>
+    <string name="pref_developer_summary">tytydraco (Tyler Nijmeh) </string>
+
+    <string name="pref_source_code">source_code</string>
+    <string name="pref_source_code_title">Source code</string>
+    <string name="pref_source_code_summary">Inspect the source code on GitHub</string>
+
     <string name="pref_contact">contact</string>
+    <string name="pref_contact_title">Contact</string>
+    <string name="pref_contact_summary">Email me with questions, comments, or concerns</string>
+
     <string name="pref_licenses">licenses</string>
+    <string name="pref_licenses_title">Licenses</string>
+    <string name="pref_licenses_summary">View open source licenses</string>
 </resources>

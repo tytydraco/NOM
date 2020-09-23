@@ -24,7 +24,7 @@ class SettingsPreferenceFragment: PreferenceFragmentCompat() {
             }
 
             /* Take user to the source code */
-            getString(R.string.pref_github) -> {
+            getString(R.string.pref_source_code) -> {
                 val intent = Intent(Intent.ACTION_VIEW)
                     .setData(Uri.parse("https://github.com/tytydraco/NOM"))
 
