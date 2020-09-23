@@ -28,7 +28,9 @@ class SettingsPreferenceFragment: PreferenceFragmentCompat() {
                 val intent = Intent(Intent.ACTION_VIEW)
                     .setData(Uri.parse("https://github.com/tytydraco/NOM"))
 
-                startActivity(intent)
+                try {
+                    startActivity(intent)
+                } catch(_: Exception) {}
             }
 
             /* Send the developer an email */
@@ -36,7 +38,9 @@ class SettingsPreferenceFragment: PreferenceFragmentCompat() {
                 val intent = Intent(Intent.ACTION_SENDTO)
                     .setData(Uri.parse("mailto:tylernij@gmail.com?subject=NOM%20Feedback"))
 
-                startActivity(intent)
+                try {
+                    startActivity(intent)
+                } catch(_: Exception) {}
             }
 
             /* Show open source licenses */
