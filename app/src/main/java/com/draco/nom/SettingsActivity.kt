@@ -16,8 +16,8 @@ class SettingsActivity: AppCompatActivity() {
             .commit()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onBackPressed() {
+        super.onBackPressed()
         finishAffinity()
         startActivity(Intent(this, MainActivity::class.java))
     }
