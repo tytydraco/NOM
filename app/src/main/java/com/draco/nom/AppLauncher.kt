@@ -27,9 +27,6 @@ class AppLauncher: BroadcastReceiver() {
         /* Prefer to place on last valid external display */
         val external = intent.getBooleanExtra("external", false)
 
-        /* Prefer to place on internal display (as opposed to default display) */
-        val internal = intent.getBooleanExtra("internal", false)
-
         val appIntent = context.packageManager.getLaunchIntentForPackage(appId) ?: return
         appIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
@@ -52,11 +49,6 @@ class AppLauncher: BroadcastReceiver() {
 
         /* Place on the default display */
         val defaultDisplayId = intent.getIntExtra("displayId", 0)
-
-        /* Launch on internal or default display */
-        if (internal)
-            launch(context, 0, appIntent)
-        else
-            launch(context, defaultDisplayId, appIntent)
+        launch(context, defaultDisplayId, appIntent)
     }
 }
