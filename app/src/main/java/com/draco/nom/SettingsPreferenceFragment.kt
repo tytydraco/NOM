@@ -23,14 +23,6 @@ class SettingsPreferenceFragment: PreferenceFragmentCompat() {
                 startActivity(intent)
             }
 
-            /* Take user to the Google Play details page */
-            getString(R.string.pref_view_store) -> {
-                val uri = Uri.parse("market://details?id=" + requireContext().packageName)
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-
-                startActivity(intent)
-            }
-
             /* Take user to the source code */
             getString(R.string.pref_github) -> {
                 val intent = Intent(Intent.ACTION_VIEW)

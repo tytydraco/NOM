@@ -44,11 +44,6 @@
             android:summary="tytydraco (Tyler Nijmeh)"
             android:key="@string/pref_developer"/>
         <Preference
-            android:icon="@drawable/ic_baseline_local_grocery_store_24"
-            android:key="@string/pref_view_store"
-            android:title="View store page"
-            android:summary="View this app on the Google Play Store" />
-        <Preference
             android:icon="@drawable/ic_baseline_code_24"
             android:key="@string/pref_github"
             android:title="View GitHub source"
