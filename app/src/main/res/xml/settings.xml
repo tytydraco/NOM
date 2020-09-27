@@ -28,8 +28,7 @@
             android:icon="@drawable/ic_baseline_crop_24"
             android:key="@string/pref_circle_crop"
             android:title="@string/pref_circle_crop_title"
-            android:summary="@string/pref_circle_crop_summary"
-            android:defaultValue="false" />
+            android:summary="@string/pref_circle_crop_summary" />
         <EditTextPreference
             android:icon="@drawable/ic_baseline_color_lens_24"
             android:key="@string/pref_background_color"

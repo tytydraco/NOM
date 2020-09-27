@@ -64,17 +64,8 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = appList[position]
 
-        /* Special configuration for app settings */
-        if (info.id == recyclerView.context.packageName) {
-            holder.itemView.setOnClickListener {
-                val intent = Intent(recyclerView.context, SettingsActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
-                recyclerView.context.startActivity(intent)
-            }
-        } else {
-            holder.itemView.setOnClickListener {
-                doLaunch(info, sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_default_external), false))
-            }
+        holder.itemView.setOnClickListener {
+            doLaunch(info, sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_default_external), false))
         }
 
         holder.itemView.setOnLongClickListener {

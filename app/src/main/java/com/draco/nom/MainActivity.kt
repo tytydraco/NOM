@@ -3,6 +3,7 @@ package com.draco.nom
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
@@ -17,6 +18,7 @@ import kotlin.collections.ArrayList
 
 class MainActivity: AppCompatActivity() {
     private lateinit var recyclerAdapter: RecyclerAdapter
+    private lateinit var sharedPrefs: SharedPreferences
 
     private fun getAppList(): ArrayList<AppInfo> {
         val launcherIntent = Intent(Intent.ACTION_MAIN, null)
@@ -44,15 +46,6 @@ class MainActivity: AppCompatActivity() {
             it.name.toLowerCase(Locale.getDefault())
         }
 
-        val settingsButton = AppInfo()
-        with (settingsButton) {
-            id = packageName
-            name = "Settings"
-            img = packageManager.getApplicationIcon(packageName)
-        }
-
-        appList.add(settingsButton)
-
         return appList
     }
 
@@ -63,7 +56,7 @@ class MainActivity: AppCompatActivity() {
         val container = findViewById<LinearLayout>(R.id.container)
         val recycler = findViewById<RecyclerView>(R.id.recycler)
 
-        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
         recyclerAdapter = RecyclerAdapter(getAppList(), recycler, sharedPrefs)
         recyclerAdapter.setHasStableIds(true)
 
@@ -92,7 +85,11 @@ class MainActivity: AppCompatActivity() {
         } catch (_: Exception) {}
     }
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        val intent = Intent(this, SettingsActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+    }
 
     override fun onResume() {
         super.onResume()
