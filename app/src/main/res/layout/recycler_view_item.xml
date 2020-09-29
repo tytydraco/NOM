@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:gravity="center"
     android:paddingVertical="8dp">
     <ImageView
         android:layout_width="@dimen/icon_size"
