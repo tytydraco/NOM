@@ -25,12 +25,9 @@ class RecyclerAdapter(
     }
 
     fun updateList(newAppList: ArrayList<Triple<String, String, Drawable>>) {
-        for (i in 0 until appList.size) {
-            if (appList[i].second != newAppList[i].second) {
-                appList = newAppList
-                notifyDataSetChanged()
-                break
-            }
+        if (appList != newAppList) {
+            appList = newAppList
+            notifyDataSetChanged()
         }
     }
 
