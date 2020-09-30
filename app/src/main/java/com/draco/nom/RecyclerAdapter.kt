@@ -2,7 +2,7 @@ package com.draco.nom
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.drawable.Drawable
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -14,9 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class RecyclerAdapter(
-    private var appList: ArrayList<Triple<String, String, Drawable>>,
+    private var appList: ArrayList<Pair<String, String>>,
     private val recyclerView: RecyclerView,
-    private val sharedPrefs: SharedPreferences
+    private val sharedPrefs: SharedPreferences,
+    private val packageManager: PackageManager
 ): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -24,7 +25,7 @@ class RecyclerAdapter(
         val name = itemView.findViewById(R.id.name) as TextView
     }
 
-    fun updateList(newAppList: ArrayList<Triple<String, String, Drawable>>) {
+    fun updateList(newAppList: ArrayList<Pair<String, String>>) {
         if (appList != newAppList) {
             appList = newAppList
             notifyDataSetChanged()
@@ -66,7 +67,8 @@ class RecyclerAdapter(
         }
 
         /* Setup app icons and labels */
-        val img = Glide.with(holder.img).load(info.third)
+        val drawable = packageManager.getApplicationIcon(info.second)
+        val img = Glide.with(holder.img).load(drawable)
 
         if (sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_circle_crop), false))
             img.circleCrop()

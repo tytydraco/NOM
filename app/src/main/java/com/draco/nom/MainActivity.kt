@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Display
 import android.widget.LinearLayout
@@ -21,22 +20,21 @@ class MainActivity: AppCompatActivity() {
     private lateinit var recyclerAdapter: RecyclerAdapter
     private lateinit var sharedPrefs: SharedPreferences
 
-    private fun getAppList(): ArrayList<Triple<String, String, Drawable>> {
+    private fun getAppList(): ArrayList<Pair<String, String>> {
         val launcherIntent = Intent(Intent.ACTION_MAIN, null)
         launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER)
 
         val activities = packageManager.queryIntentActivities(launcherIntent, 0)
-        val appList = ArrayList<Triple<String, String, Drawable>>()
+        val appList = ArrayList<Pair<String, String>>()
 
         for (app in activities) {
             val appId = app.activityInfo.packageName
             if (appId == packageName)
                 continue
 
-            val info = Triple<String, String, Drawable>(
+            val info = Pair<String, String>(
                 app.activityInfo.loadLabel(packageManager).toString(),
-                appId,
-                packageManager.getApplicationIcon(appId)
+                appId
             )
 
             appList.add(info)
@@ -57,7 +55,7 @@ class MainActivity: AppCompatActivity() {
         val recycler = findViewById<RecyclerView>(R.id.recycler)
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-        recyclerAdapter = RecyclerAdapter(getAppList(), recycler, sharedPrefs)
+        recyclerAdapter = RecyclerAdapter(getAppList(), recycler, sharedPrefs, packageManager)
         recyclerAdapter.setHasStableIds(true)
 
         val displayMetrics = resources.displayMetrics
