@@ -17,7 +17,8 @@ class AppLauncher(
         appIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
         val options = ActivityOptions.makeBasic()
-        options.launchDisplayId = displayId
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+            options.launchDisplayId = displayId
         try {
             context.startActivity(appIntent, options.toBundle())
             return true
