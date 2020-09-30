@@ -13,7 +13,7 @@
         android:stateNotNeeded="true"
         android:clearTaskOnLaunch="true"
         android:resumeWhilePausing="true">
-        <activity android:name="com.draco.nom.MainActivity"
+        <activity android:name=".MainActivity"
             android:theme="@style/LauncherTheme"
             android:excludeFromRecents="true">
             <intent-filter>
@@ -25,8 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.draco.nom.SettingsActivity" />
-        <receiver android:name="com.draco.nom.AppLauncher" />
+        <activity android:name=".SettingsActivity" />
+        <receiver android:name=".AppLauncher" />
     </application>
 
 </manifest>
