@@ -2,6 +2,7 @@ package com.draco.nom
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -13,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class RecyclerAdapter(
-        private var appList: ArrayList<AppInfo>,
-        private val recyclerView: RecyclerView,
-        private val sharedPrefs: SharedPreferences
+    private var appList: ArrayList<Triple<String, String, Drawable>>,
+    private val recyclerView: RecyclerView,
+    private val sharedPrefs: SharedPreferences
     ): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -23,9 +24,9 @@ class RecyclerAdapter(
         val name = itemView.findViewById(R.id.name) as TextView
     }
 
-    fun updateList(newAppList: ArrayList<AppInfo>) {
+    fun updateList(newAppList: ArrayList<Triple<String, String, Drawable>>) {
         for (i in 0 until appList.size) {
-            if (appList[i].id != newAppList[i].id) {
+            if (appList[i].second != newAppList[i].second) {
                 appList = newAppList
                 notifyDataSetChanged()
                 break
@@ -53,14 +54,14 @@ class RecyclerAdapter(
         holder.itemView.setOnClickListener {
             val external = sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_default_external), false)
             val defaultDisplayId = getDisplayId(recyclerView.context)
-            AppLauncher(recyclerView.context, defaultDisplayId, info.id, external).launch()
+            AppLauncher(recyclerView.context, defaultDisplayId, info.second, external).launch()
         }
 
         /* Settings for app */
         holder.itemView.setOnLongClickListener {
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.data = Uri.fromParts("package", info.id, null)
+            intent.data = Uri.fromParts("package", info.second, null)
             try {
                 recyclerView.context.startActivity(intent)
             } catch (_: Exception) {}
@@ -68,17 +69,15 @@ class RecyclerAdapter(
         }
 
         /* Setup app icons and labels */
-        if (info.img != null) {
-            val img = Glide.with(holder.img).load(info.img)
+        val img = Glide.with(holder.img).load(info.third)
 
-            if (sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_circle_crop), false))
-                img.circleCrop()
+        if (sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_circle_crop), false))
+            img.circleCrop()
 
-            img.into(holder.img)
-        }
+        img.into(holder.img)
 
         if (sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_icon_labels), true))
-            holder.name.text = info.name
+            holder.name.text = info.first
         else
             holder.name.visibility = View.GONE
     }
