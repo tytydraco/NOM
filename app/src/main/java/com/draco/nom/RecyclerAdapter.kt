@@ -46,28 +46,17 @@ class RecyclerAdapter(
         return appList[position].hashCode().toLong()
     }
 
-    private fun doLaunch(info: AppInfo, external: Boolean) {
-        val defaultDisplayId = getDisplayId(recyclerView.context)
-
-        /* Start on specified display (fallback to internal) */
-        val appIntent = Intent(recyclerView.context, AppLauncher::class.java)
-        with (appIntent) {
-            putExtra("appId", info.id)
-            putExtra("external", external)
-            putExtra("displayId", defaultDisplayId)
-            setFlags(Intent.FLAG_RECEIVER_FOREGROUND)
-        }
-
-        recyclerView.context.sendBroadcast(appIntent)
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = appList[position]
 
+        /* Launch app */
         holder.itemView.setOnClickListener {
-            doLaunch(info, sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_default_external), false))
+            val external = sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_default_external), false)
+            val defaultDisplayId = getDisplayId(recyclerView.context)
+            AppLauncher(recyclerView.context, defaultDisplayId, info.id, external).launch()
         }
 
+        /* Settings for app */
         holder.itemView.setOnLongClickListener {
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
