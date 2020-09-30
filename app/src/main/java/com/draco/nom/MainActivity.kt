@@ -27,7 +27,7 @@ class MainActivity: AppCompatActivity() {
 
         val activities = packageManager.queryIntentActivities(launcherIntent, 0)
         val appList = ArrayList<Triple<String, String, Drawable>>()
-        
+
         for (app in activities) {
             val appId = app.activityInfo.packageName
             if (appId == packageName)

@@ -17,9 +17,9 @@ class RecyclerAdapter(
     private var appList: ArrayList<Triple<String, String, Drawable>>,
     private val recyclerView: RecyclerView,
     private val sharedPrefs: SharedPreferences
-    ): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val img = itemView.findViewById(R.id.img) as ImageView
         val name = itemView.findViewById(R.id.name) as TextView
     }
