@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.view.WindowManager
 
-fun getDefaultDisplay(context: Context): Int {
+fun getDisplayId(context: Context): Int {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
         context.display!!.displayId
     else {

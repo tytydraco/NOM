@@ -71,7 +71,7 @@ class MainActivity: AppCompatActivity() {
             layoutManager = GridLayoutManager(context, columns)
         }
 
-        if (getDefaultDisplay(this) == Display.DEFAULT_DISPLAY &&
+        if (getDisplayId(this) == Display.DEFAULT_DISPLAY &&
             !sharedPrefs.getBoolean(getString(R.string.pref_rotation), false)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
