@@ -61,7 +61,7 @@ class MainActivity: AppCompatActivity() {
         val displayMetrics = resources.displayMetrics
         val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
         val iconSize = resources.getDimension(R.dimen.icon_size) / displayMetrics.density
-        val columns = Integer.max(5, (screenWidthDp / iconSize).toInt())
+        val columns = 5.coerceAtLeast((screenWidthDp / iconSize).toInt())
 
         with (recycler) {
             setItemViewCacheSize(1000)
