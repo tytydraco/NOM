@@ -1,13 +1,16 @@
 package com.draco.nom
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +46,15 @@ class RecyclerAdapter(
 
     override fun getItemId(position: Int): Long {
         return appList[position].hashCode().toLong()
+    }
+
+    private fun getDisplayId(context: Context): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+            context.display!!.displayId
+        else {
+            val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            wm.defaultDisplay.displayId
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

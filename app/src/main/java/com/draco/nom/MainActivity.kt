@@ -69,10 +69,8 @@ class MainActivity: AppCompatActivity() {
             layoutManager = GridLayoutManager(context, columns)
         }
 
-        if (getDisplayId(this) == Display.DEFAULT_DISPLAY &&
-            !sharedPrefs.getBoolean(getString(R.string.pref_rotation), true)) {
+        if (!sharedPrefs.getBoolean(getString(R.string.pref_rotation), true))
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
 
         val backgroundColorString = sharedPrefs.getString(getString(R.string.pref_background_color), "#88000000")
         try {
