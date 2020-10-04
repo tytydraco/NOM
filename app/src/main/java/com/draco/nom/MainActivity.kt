@@ -70,7 +70,7 @@ class MainActivity: AppCompatActivity() {
         }
 
         if (getDisplayId(this) == Display.DEFAULT_DISPLAY &&
-            !sharedPrefs.getBoolean(getString(R.string.pref_rotation), false)) {
+            !sharedPrefs.getBoolean(getString(R.string.pref_rotation), true)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 

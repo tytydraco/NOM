@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="@string/pref_settings">
         <Preference
             android:icon="@drawable/ic_baseline_refresh_24"
@@ -15,7 +16,8 @@
             android:icon="@drawable/ic_baseline_screen_rotation_24"
             android:key="@string/pref_rotation"
             android:title="@string/pref_rotation_title"
-            android:summary="@string/pref_rotation_summary" />
+            android:summary="@string/pref_rotation_summary"
+            app:defaultValue="true" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_customization">
         <SwitchPreference
