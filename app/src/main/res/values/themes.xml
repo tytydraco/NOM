@@ -4,8 +4,8 @@
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
     <style name="LauncherTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="android:statusBarColor">#88000000</item>
-        <item name="android:navigationBarColor">#88000000</item>
+        <item name="android:statusBarColor">#00000000</item>
+        <item name="android:navigationBarColor">#00000000</item>
         <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:fitsSystemWindows">true</item>

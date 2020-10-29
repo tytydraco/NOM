@@ -36,7 +36,7 @@
             android:key="@string/pref_background_color"
             android:title="@string/pref_background_color_title"
             android:summary="@string/pref_background_color_summary"
-            android:defaultValue="#88000000" />
+            android:defaultValue="#00000000" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_about">
         <Preference

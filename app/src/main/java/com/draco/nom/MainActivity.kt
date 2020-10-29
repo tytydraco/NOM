@@ -71,7 +71,7 @@ class MainActivity: AppCompatActivity() {
         if (!sharedPrefs.getBoolean(getString(R.string.pref_rotation), true))
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-        val backgroundColorString = sharedPrefs.getString(getString(R.string.pref_background_color), "#88000000")
+        val backgroundColorString = sharedPrefs.getString(getString(R.string.pref_background_color), "#00000000")
         try {
             val backgroundColor = Color.parseColor(backgroundColorString)
             window.statusBarColor = backgroundColor
