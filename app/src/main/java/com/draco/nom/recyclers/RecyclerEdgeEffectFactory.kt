@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
     companion object {
-        const val PHYSICS_PULL_MODIFIER = 0.5f
+        const val PHYSICS_PULL_MODIFIER = 0.1f
     }
 
     private class RecyclerEdgeEffect(private val view: RecyclerView, direction: Int) : EdgeEffect(view.context) {
