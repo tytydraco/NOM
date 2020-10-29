@@ -1,13 +1,9 @@
 <resources>
     <style name="AppTheme" parent="Theme.MaterialComponents">
-        <item name="colorPrimary">@android:color/black</item>
-        <item name="colorPrimaryVariant">@android:color/black</item>
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
     <style name="LauncherTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="colorPrimary">@android:color/black</item>
-        <item name="colorPrimaryVariant">@android:color/black</item>
         <item name="android:statusBarColor">#88000000</item>
         <item name="android:navigationBarColor">#88000000</item>
         <item name="android:windowShowWallpaper">true</item>
