@@ -19,7 +19,7 @@
         android:stateNotNeeded="true"
         android:clearTaskOnLaunch="true"
         android:resumeWhilePausing="true">
-        <activity android:name=".MainActivity"
+        <activity android:name=".activities.MainActivity"
             android:theme="@style/LauncherTheme"
             android:excludeFromRecents="true">
             <intent-filter>
@@ -31,7 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".activities.SettingsActivity" />
     </application>
 
 </manifest>

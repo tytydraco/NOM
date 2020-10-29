@@ -1,4 +1,4 @@
-package com.draco.nom
+package com.draco.nom.recyclers
 
 import android.widget.EdgeEffect
 import androidx.core.view.children

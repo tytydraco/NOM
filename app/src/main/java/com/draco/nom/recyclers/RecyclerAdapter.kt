@@ -1,8 +1,7 @@
-package com.draco.nom
+package com.draco.nom.recyclers
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -17,6 +16,8 @@ import androidx.dynamicanimation.animation.SpringForce
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.draco.nom.R
+import com.draco.nom.utils.AppLauncher
 
 class RecyclerAdapter(
     private var appList: ArrayList<Pair<String, String>>,

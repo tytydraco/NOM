@@ -1,4 +1,4 @@
-package com.draco.nom
+package com.draco.nom.utils
 
 import android.app.ActivityOptions
 import android.app.Service

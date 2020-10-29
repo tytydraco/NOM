@@ -1,4 +1,4 @@
-package com.draco.nom
+package com.draco.nom.activities
 
 import android.app.NotificationManager
 import android.content.Context
@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.draco.nom.R
+import com.draco.nom.recyclers.RecyclerAdapter
+import com.draco.nom.recyclers.RecyclerEdgeEffectFactory
 import java.util.*
 import kotlin.collections.ArrayList
 
