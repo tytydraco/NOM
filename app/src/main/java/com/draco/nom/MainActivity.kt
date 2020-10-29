@@ -54,7 +54,7 @@ class MainActivity: AppCompatActivity() {
         val recycler = findViewById<RecyclerView>(R.id.recycler)
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-        recyclerAdapter = RecyclerAdapter(getAppList(), recycler, sharedPrefs, packageManager)
+        recyclerAdapter = RecyclerAdapter(getAppList(), recycler)
         recyclerAdapter.setHasStableIds(true)
 
         val displayMetrics = resources.displayMetrics
@@ -66,6 +66,7 @@ class MainActivity: AppCompatActivity() {
             setItemViewCacheSize(1000)
             adapter = recyclerAdapter
             layoutManager = GridLayoutManager(context, columns)
+            edgeEffectFactory = RecyclerEdgeEffectFactory()
         }
 
         if (!sharedPrefs.getBoolean(getString(R.string.pref_rotation), true))

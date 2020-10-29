@@ -3,7 +3,6 @@ package com.draco.nom
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -13,19 +12,29 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.dynamicanimation.animation.SpringAnimation
+import androidx.dynamicanimation.animation.SpringForce
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class RecyclerAdapter(
     private var appList: ArrayList<Pair<String, String>>,
-    private val recyclerView: RecyclerView,
-    private val sharedPrefs: SharedPreferences,
-    private val packageManager: PackageManager
+    private val recyclerView: RecyclerView
 ): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+    private val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(recyclerView.context)
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val img = itemView.findViewById(R.id.img) as ImageView
         val name = itemView.findViewById(R.id.name) as TextView
+
+        val translationY: SpringAnimation = SpringAnimation(itemView, SpringAnimation.TRANSLATION_Y)
+            .setSpring(
+                SpringForce()
+                    .setFinalPosition(0f)
+                    .setDampingRatio(SpringForce.DAMPING_RATIO_LOW_BOUNCY)
+                    .setStiffness(SpringForce.STIFFNESS_MEDIUM)
+            )
     }
 
     fun updateList(newAppList: ArrayList<Pair<String, String>>) {
@@ -79,7 +88,7 @@ class RecyclerAdapter(
         }
 
         /* Setup app icons and labels */
-        val drawable = packageManager.getApplicationIcon(info.second)
+        val drawable = recyclerView.context.packageManager.getApplicationIcon(info.second)
         val img = Glide.with(holder.img).load(drawable)
 
         if (sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_circle_crop), false))
