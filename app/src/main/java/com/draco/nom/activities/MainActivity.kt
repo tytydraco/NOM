@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.R
 import com.draco.nom.recyclers.RecyclerAdapter
 import com.draco.nom.recyclers.RecyclerEdgeEffectFactory
+import com.draco.nom.utils.AppInfo
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -22,19 +23,19 @@ class MainActivity: AppCompatActivity() {
     private lateinit var recyclerAdapter: RecyclerAdapter
     private lateinit var sharedPrefs: SharedPreferences
 
-    private fun getAppList(): ArrayList<Pair<String, String>> {
+    private fun getAppList(): Array<AppInfo> {
         val launcherIntent = Intent(Intent.ACTION_MAIN, null)
         launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER)
 
         val activities = packageManager.queryIntentActivities(launcherIntent, 0)
-        val appList = ArrayList<Pair<String, String>>()
+        val appList = ArrayList<AppInfo>()
 
         for (app in activities) {
             val appId = app.activityInfo.packageName
             if (appId == packageName)
                 continue
 
-            val info = Pair<String, String>(
+            val info = AppInfo(
                 app.activityInfo.loadLabel(packageManager).toString(),
                 appId
             )
@@ -43,10 +44,10 @@ class MainActivity: AppCompatActivity() {
         }
 
         appList.sortBy {
-            it.first.toLowerCase(Locale.getDefault())
+            it.label.toLowerCase(Locale.getDefault())
         }
 
-        return appList
+        return appList.toTypedArray()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
