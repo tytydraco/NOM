@@ -1,9 +1,9 @@
 <resources>
-    <style name="AppTheme" parent="Theme.MaterialComponents">
+    <style name="Theme.NOM" parent="Theme.MaterialComponents">
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
-    <style name="LauncherTheme" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.NOM.Launcher" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:statusBarColor">#00000000</item>
         <item name="android:navigationBarColor">#00000000</item>
         <item name="android:windowShowWallpaper">true</item>
