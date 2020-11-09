@@ -31,13 +31,9 @@ class MainActivity: AppCompatActivity() {
         val appList = ArrayList<AppInfo>()
 
         for (app in activities) {
-            val appId = app.activityInfo.packageName
-            if (appId == packageName)
-                continue
-
             val info = AppInfo(
                 app.activityInfo.loadLabel(packageManager).toString(),
-                appId
+                app.activityInfo.packageName
             )
 
             appList.add(info)
@@ -83,12 +79,6 @@ class MainActivity: AppCompatActivity() {
             window.navigationBarColor = backgroundColor
             container.setBackgroundColor(backgroundColor)
         } catch (_: Exception) {}
-    }
-
-    override fun onBackPressed() {
-        val intent = Intent(this, SettingsActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
-        startActivity(intent)
     }
 
     override fun onResume() {

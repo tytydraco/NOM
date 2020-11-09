@@ -17,6 +17,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.draco.nom.R
+import com.draco.nom.activities.SettingsActivity
 import com.draco.nom.utils.AppInfo
 import com.draco.nom.utils.AppLauncher
 
@@ -71,11 +72,17 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = appList[position]
 
-        /* Launch app */
+        /* Launch app or open launcher settings */
         holder.itemView.setOnClickListener {
-            val external = sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_default_external), false)
-            val defaultDisplayId = getDisplayId(recyclerView.context)
-            AppLauncher(recyclerView.context, defaultDisplayId, info.id, external).launch()
+            if (info.id == recyclerView.context.packageName) {
+                val intent = Intent(recyclerView.context, SettingsActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+                recyclerView.context.startActivity(intent)
+            } else {
+                val external = sharedPrefs.getBoolean(recyclerView.context.getString(R.string.pref_default_external), false)
+                val defaultDisplayId = getDisplayId(recyclerView.context)
+                AppLauncher(recyclerView.context, defaultDisplayId, info.id, external).launch()
+            }
         }
 
         /* Settings for app */
