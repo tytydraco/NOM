@@ -6,7 +6,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
@@ -46,6 +50,27 @@ class MainActivity: AppCompatActivity() {
         return appList.toTypedArray()
     }
 
+    private fun immersive() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            with (window.insetsController!!) {
+                hide(
+                    WindowInsets.Type.statusBars() or
+                    WindowInsets.Type.navigationBars()
+                )
+                systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        } else {
+            window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                View.SYSTEM_UI_FLAG_FULLSCREEN
+            )
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,6 +79,15 @@ class MainActivity: AppCompatActivity() {
         val recycler = findViewById<RecyclerView>(R.id.recycler)
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+        /* Make sure we reapply immersive mode on rotate */
+        if (sharedPrefs.getBoolean(getString(R.string.pref_fullscreen), false)) {
+            window.decorView.setOnApplyWindowInsetsListener { view, windowInsets ->
+                view.post { immersive() }
+                return@setOnApplyWindowInsetsListener windowInsets
+            }
+        }
+
         recyclerAdapter = RecyclerAdapter(getAppList(), recycler)
         recyclerAdapter.setHasStableIds(true)
 
@@ -91,4 +125,6 @@ class MainActivity: AppCompatActivity() {
         notificationManager.cancelAll()
         super.onDestroy()
     }
+
+    override fun onBackPressed() {}
 }

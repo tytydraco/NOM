@@ -18,6 +18,12 @@
             android:title="@string/pref_rotation_title"
             android:summary="@string/pref_rotation_summary"
             app:defaultValue="true" />
+        <SwitchPreference
+            android:icon="@drawable/ic_baseline_fullscreen_24"
+            android:key="@string/pref_fullscreen"
+            android:title="@string/pref_fullscreen_title"
+            android:summary="@string/pref_fullscreen_summary"
+            app:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_customization">
         <SwitchPreference
