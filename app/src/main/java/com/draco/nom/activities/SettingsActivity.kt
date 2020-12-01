@@ -1,5 +1,6 @@
 package com.draco.nom.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.draco.nom.R
@@ -15,5 +16,14 @@ class SettingsActivity: AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.settingsActivity, SettingsPreferenceFragment())
             .commit()
+    }
+
+    override fun onPause() {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        startActivity(intent)
+        finishAffinity()
+        super.onPause()
     }
 }

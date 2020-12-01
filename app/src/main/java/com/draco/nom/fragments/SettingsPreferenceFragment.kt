@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.draco.nom.R
-import com.draco.nom.activities.MainActivity
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
 class SettingsPreferenceFragment: PreferenceFragmentCompat() {
@@ -18,13 +17,6 @@ class SettingsPreferenceFragment: PreferenceFragmentCompat() {
     /* Process preference clicks */
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         if (preference != null) when (preference.key) {
-            /* Refresh the launcher */
-            getString(R.string.pref_restart) -> {
-                val intent = Intent(requireContext(), MainActivity::class.java)
-                requireActivity().finishAffinity()
-                startActivity(intent)
-            }
-
             /* Take user to the source code */
             getString(R.string.pref_source_code) -> {
                 val intent = Intent(Intent.ACTION_VIEW)
