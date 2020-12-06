@@ -1,8 +1,6 @@
 package com.draco.nom.activities
 
 import android.annotation.SuppressLint
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
@@ -119,12 +117,6 @@ class MainActivity: AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         recyclerAdapter.updateList(getAppList())
-    }
-
-    override fun onDestroy() {
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancelAll()
-        super.onDestroy()
     }
 
     override fun onBackPressed() {}
