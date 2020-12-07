@@ -12,6 +12,7 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.R
@@ -77,7 +78,7 @@ class MainActivity: AppCompatActivity() {
         val container = findViewById<LinearLayout>(R.id.container)
         val recycler = findViewById<RecyclerView>(R.id.recycler)
 
-        sharedPrefs = getPreferences(MODE_PRIVATE)
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         /* Make sure we reapply immersive mode on rotate */
         if (sharedPrefs.getBoolean(getString(R.string.pref_fullscreen), false)) {
