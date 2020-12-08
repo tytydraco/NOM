@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
+        android:adjustViewBounds="true"
         android:id="@+id/img"
         app:shapeAppearanceOverlay="@style/ShapeableImageView.Circle"
         tools:ignore="ContentDescription" />
