@@ -21,10 +21,10 @@ import com.draco.nom.activities.SettingsActivity
 import com.draco.nom.utils.AppInfo
 import com.draco.nom.utils.AppLauncher
 
-class RecyclerAdapter(
+class LauncherRecyclerAdapter(
     private var appList: Array<AppInfo>,
     private val recyclerView: RecyclerView
-): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+): RecyclerView.Adapter<LauncherRecyclerAdapter.ViewHolder>() {
     private val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(recyclerView.context)
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

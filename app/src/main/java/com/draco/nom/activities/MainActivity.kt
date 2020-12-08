@@ -16,14 +16,14 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.R
-import com.draco.nom.recyclers.RecyclerAdapter
+import com.draco.nom.recyclers.LauncherRecyclerAdapter
 import com.draco.nom.recyclers.RecyclerEdgeEffectFactory
 import com.draco.nom.utils.AppInfo
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity: AppCompatActivity() {
-    private lateinit var recyclerAdapter: RecyclerAdapter
+    private lateinit var recyclerAdapter: LauncherRecyclerAdapter
     private lateinit var sharedPrefs: SharedPreferences
 
     private fun getAppList(): Array<AppInfo> {
@@ -88,7 +88,7 @@ class MainActivity: AppCompatActivity() {
             }
         }
 
-        recyclerAdapter = RecyclerAdapter(getAppList(), recycler)
+        recyclerAdapter = LauncherRecyclerAdapter(getAppList(), recycler)
         recyclerAdapter.setHasStableIds(true)
 
         val displayMetrics = resources.displayMetrics

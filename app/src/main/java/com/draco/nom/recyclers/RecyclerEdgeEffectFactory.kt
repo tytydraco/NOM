@@ -15,7 +15,7 @@ class RecyclerEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
         private fun handlePull(deltaDistance: Float) {
             val translationYDelta = directionModifier * view.width * deltaDistance * PHYSICS_PULL_MODIFIER
             for (child in view.children) {
-                val holder = view.getChildViewHolder(child) as RecyclerAdapter.ViewHolder
+                val holder = view.getChildViewHolder(child) as LauncherRecyclerAdapter.ViewHolder
                 holder.translationY.cancel()
                 holder.itemView.translationY += translationYDelta
             }
@@ -34,7 +34,7 @@ class RecyclerEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
         override fun onRelease() {
             super.onRelease()
             for (child in view.children) {
-                val holder = view.getChildViewHolder(child) as RecyclerAdapter.ViewHolder
+                val holder = view.getChildViewHolder(child) as LauncherRecyclerAdapter.ViewHolder
                 holder.translationY.start()
             }
         }
@@ -43,7 +43,7 @@ class RecyclerEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
             super.onAbsorb(velocity)
             val translationVelocity = directionModifier * velocity
             for (child in view.children) {
-                val holder = view.getChildViewHolder(child) as RecyclerAdapter.ViewHolder
+                val holder = view.getChildViewHolder(child) as LauncherRecyclerAdapter.ViewHolder
                 holder.translationY
                     .setStartVelocity(translationVelocity.toFloat())
                     .start()
