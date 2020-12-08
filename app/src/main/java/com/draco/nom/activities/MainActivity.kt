@@ -1,7 +1,6 @@
 package com.draco.nom.activities
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.Color
@@ -18,36 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.R
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
 import com.draco.nom.recyclers.RecyclerEdgeEffectFactory
-import com.draco.nom.utils.AppInfo
+import com.draco.nom.utils.AppList
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity: AppCompatActivity() {
+    private lateinit var appList: AppList
     private lateinit var recyclerAdapter: LauncherRecyclerAdapter
     private lateinit var sharedPrefs: SharedPreferences
-
-    private fun getAppList(): Array<AppInfo> {
-        val launcherIntent = Intent(Intent.ACTION_MAIN, null)
-        launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER)
-
-        val activities = packageManager.queryIntentActivities(launcherIntent, 0)
-        val appList = ArrayList<AppInfo>()
-
-        for (app in activities) {
-            val info = AppInfo(
-                app.activityInfo.loadLabel(packageManager).toString(),
-                app.activityInfo.packageName
-            )
-
-            appList.add(info)
-        }
-
-        appList.sortBy {
-            it.label.toLowerCase(Locale.getDefault())
-        }
-
-        return appList.toTypedArray()
-    }
 
     private fun immersive() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -75,6 +51,7 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val appList = AppList(packageManager)
         val container = findViewById<LinearLayout>(R.id.container)
         val recycler = findViewById<RecyclerView>(R.id.recycler)
 
@@ -88,7 +65,7 @@ class MainActivity: AppCompatActivity() {
             }
         }
 
-        recyclerAdapter = LauncherRecyclerAdapter(getAppList(), recycler)
+        recyclerAdapter = LauncherRecyclerAdapter(appList.get(), recycler)
         recyclerAdapter.setHasStableIds(true)
 
         val displayMetrics = resources.displayMetrics
@@ -117,7 +94,7 @@ class MainActivity: AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        recyclerAdapter.updateList(getAppList())
+        recyclerAdapter.updateList(appList.get())
     }
 
     override fun onBackPressed() {}
