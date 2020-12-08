@@ -1,72 +1,30 @@
 package com.draco.nom.activities
 
-import android.annotation.SuppressLint
-import android.content.SharedPreferences
-import android.content.pm.ActivityInfo
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.R
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
 import com.draco.nom.recyclers.RecyclerEdgeEffectFactory
-import com.draco.nom.utils.AppList
-import java.util.*
 
 class MainActivity: AppCompatActivity() {
-    private lateinit var appList: AppList
     private lateinit var recyclerAdapter: LauncherRecyclerAdapter
-    private lateinit var sharedPrefs: SharedPreferences
+    private lateinit var recycler: RecyclerView
 
-    private fun immersive() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            with (window.insetsController!!) {
-                hide(
-                    WindowInsets.Type.statusBars() or
-                    WindowInsets.Type.navigationBars()
-                )
-                systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            }
-        } else {
-            window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                View.SYSTEM_UI_FLAG_FULLSCREEN
-            )
-        }
-    }
-
-    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val appList = AppList(packageManager)
-        val container = findViewById<LinearLayout>(R.id.container)
-        val recycler = findViewById<RecyclerView>(R.id.recycler)
+        recycler = findViewById(R.id.recycler)
 
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+        setupRecyclerView()
+    }
 
-        /* Make sure we reapply immersive mode on rotate */
-        if (sharedPrefs.getBoolean(getString(R.string.pref_fullscreen), false)) {
-            window.decorView.setOnApplyWindowInsetsListener { view, windowInsets ->
-                view.post { immersive() }
-                return@setOnApplyWindowInsetsListener windowInsets
-            }
+    private fun setupRecyclerView() {
+        recyclerAdapter = LauncherRecyclerAdapter(this).apply {
+            setHasStableIds(true)
         }
-
-        recyclerAdapter = LauncherRecyclerAdapter(appList.get(), recycler)
-        recyclerAdapter.setHasStableIds(true)
 
         val displayMetrics = resources.displayMetrics
         val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
@@ -74,27 +32,17 @@ class MainActivity: AppCompatActivity() {
         val columns = 5.coerceAtLeast((screenWidthDp / iconSize).toInt())
 
         with (recycler) {
-            setItemViewCacheSize(1000)
             adapter = recyclerAdapter
             layoutManager = GridLayoutManager(context, columns)
             edgeEffectFactory = RecyclerEdgeEffectFactory()
+
+            setItemViewCacheSize(1000)
         }
-
-        if (!sharedPrefs.getBoolean(getString(R.string.pref_rotation), true))
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
-        val backgroundColorString = sharedPrefs.getString(getString(R.string.pref_background_color), "#00000000")
-        try {
-            val backgroundColor = Color.parseColor(backgroundColorString)
-            window.statusBarColor = backgroundColor
-            window.navigationBarColor = backgroundColor
-            container.setBackgroundColor(backgroundColor)
-        } catch (_: Exception) {}
     }
 
     override fun onResume() {
         super.onResume()
-        recyclerAdapter.updateList(appList.get())
+        recyclerAdapter.updateList()
     }
 
     override fun onBackPressed() {}

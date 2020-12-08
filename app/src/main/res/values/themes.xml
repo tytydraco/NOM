@@ -1,13 +1,9 @@
 <resources>
-    <style name="Theme.NOM" parent="Theme.MaterialComponents">
-        <item name="android:statusBarColor">?attr/colorSurface</item>
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
-    </style>
-    <style name="Theme.NOM.Launcher" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.NOM" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorEdgeEffect">@android:color/transparent</item>
+        <item name="android:windowShowWallpaper">true</item>
     </style>
 </resources>
