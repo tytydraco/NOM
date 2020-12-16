@@ -6,13 +6,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp">
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:adjustViewBounds="true"
         android:id="@+id/img"
-        app:shapeAppearanceOverlay="@style/ShapeableImageView.Circle"
         tools:ignore="ContentDescription" />
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"

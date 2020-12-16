@@ -7,6 +7,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
@@ -14,14 +15,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.draco.nom.R
 import com.draco.nom.utils.AppInfo
-import com.google.android.material.imageview.ShapeableImageView
 import java.util.*
 
 class LauncherRecyclerAdapter(private val context: Context): RecyclerView.Adapter<LauncherRecyclerAdapter.ViewHolder>() {
     private var appList = emptyArray<AppInfo>()
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val img = itemView.findViewById(R.id.img) as ShapeableImageView
+        val img = itemView.findViewById(R.id.img) as ImageView
         val name = itemView.findViewById(R.id.name) as TextView
 
         val translationY = SpringAnimation(itemView, SpringAnimation.TRANSLATION_Y).apply {
@@ -102,6 +102,7 @@ class LauncherRecyclerAdapter(private val context: Context): RecyclerView.Adapte
         /* Setup app icons and labels */
         Glide.with(holder.img)
             .load(context.packageManager.getApplicationIcon(info.id))
+            .circleCrop()
             .into(holder.img)
 
         holder.name.text = info.label
