@@ -4,14 +4,14 @@ apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.draco.nom"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 47
-        versionName "1.7.1"
+        versionCode 48
+        versionName "1.7.2"
     }
 
     buildTypes {
