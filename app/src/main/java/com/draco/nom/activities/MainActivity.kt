@@ -29,7 +29,8 @@ class MainActivity: AppCompatActivity() {
         val displayMetrics = resources.displayMetrics
         val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
         val iconSize = resources.getDimension(R.dimen.icon_size) / displayMetrics.density
-        val columns = 5.coerceAtLeast((screenWidthDp / iconSize).toInt())
+
+        val columns = (screenWidthDp / iconSize).toInt()
 
         with (recycler) {
             adapter = recyclerAdapter
