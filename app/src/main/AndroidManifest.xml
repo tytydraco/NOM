@@ -18,7 +18,7 @@
         android:theme="@style/Theme.NOM"
         android:stateNotNeeded="true"
         android:resumeWhilePausing="true">
-        <activity android:name=".activities.MainActivity"
+        <activity android:name=".views.MainActivity"
             android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

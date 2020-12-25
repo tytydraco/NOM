@@ -1,4 +1,4 @@
-package com.draco.nom.utils
+package com.draco.nom.models
 
 data class AppInfo(
     var label: String,
