@@ -26,14 +26,14 @@ class MainActivity: AppCompatActivity() {
 
         setupRecyclerView()
 
-        viewModel.appList.observe(this) {
-            recyclerAdapter.appList = viewModel.appList.value!!
+        viewModel.getAppList().observe(this) {
+            recyclerAdapter.appList = it
             recyclerAdapter.notifyDataSetChanged()
         }
     }
 
     private fun setupRecyclerView() {
-        recyclerAdapter = LauncherRecyclerAdapter(this, viewModel.appList.value!!).apply {
+        recyclerAdapter = LauncherRecyclerAdapter(this, viewModel.getAppList().value!!).apply {
             setHasStableIds(true)
         }
 

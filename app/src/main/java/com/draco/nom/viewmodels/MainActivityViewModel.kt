@@ -3,13 +3,16 @@ package com.draco.nom.viewmodels
 import android.app.Application
 import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.draco.nom.models.AppInfo
 import java.util.*
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
-    val appList = MutableLiveData<Array<AppInfo>>()
+
+    private val appList = MutableLiveData<Array<AppInfo>>()
+    fun getAppList(): LiveData<Array<AppInfo>> = appList
 
     init {
         updateList()
