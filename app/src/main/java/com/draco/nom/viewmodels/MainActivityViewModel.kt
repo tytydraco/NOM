@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.draco.nom.R
 import com.draco.nom.models.AppInfo
 import java.util.*
 
@@ -18,7 +19,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         updateList()
     }
 
-    fun updateList(): Boolean {
+    fun updateList() {
         val launcherIntent = Intent(Intent.ACTION_MAIN, null).apply {
             addCategory(Intent.CATEGORY_LAUNCHER)
         }
@@ -42,11 +43,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             it.label.toLowerCase(Locale.getDefault())
         }
 
-        if (!appList.value.contentEquals(newAppList.toTypedArray())) {
+        if (!appList.value.contentEquals(newAppList.toTypedArray()))
             appList.value = newAppList.toTypedArray()
-            return true
-        }
+    }
 
-        return false
+    fun getColumns(): Int {
+        val displayMetrics = context.resources.displayMetrics
+        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
+        val iconSize = context.resources.getDimension(R.dimen.icon_size) / displayMetrics.density
+        return (screenWidthDp / iconSize).toInt()
     }
 }

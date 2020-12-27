@@ -1,9 +1,8 @@
 package com.draco.nom.views
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.R
@@ -12,50 +11,33 @@ import com.draco.nom.recyclers.RecyclerEdgeEffectFactory
 import com.draco.nom.viewmodels.MainActivityViewModel
 
 class MainActivity: AppCompatActivity() {
-    private lateinit var viewModel: MainActivityViewModel
-
+    private val viewModel: MainActivityViewModel by viewModels()
     private lateinit var recyclerAdapter: LauncherRecyclerAdapter
-    private lateinit var recycler: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-        recycler = findViewById(R.id.recycler)
-
-        setupRecyclerView()
-
         viewModel.getAppList().observe(this) {
-            recyclerAdapter.appList = it
+            recyclerAdapter.appList = viewModel.getAppList().value!!
             recyclerAdapter.notifyDataSetChanged()
         }
-    }
 
-    private fun setupRecyclerView() {
-        recyclerAdapter = LauncherRecyclerAdapter(this, viewModel.getAppList().value!!).apply {
+        recyclerAdapter = LauncherRecyclerAdapter(this, emptyArray()).apply {
             setHasStableIds(true)
         }
 
-        val displayMetrics = resources.displayMetrics
-        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
-        val iconSize = resources.getDimension(R.dimen.icon_size) / displayMetrics.density
-
-        val columns = (screenWidthDp / iconSize).toInt()
-
-        with (recycler) {
+        with (findViewById<RecyclerView>(R.id.recycler)) {
             adapter = recyclerAdapter
-            layoutManager = GridLayoutManager(context, columns)
+            layoutManager = GridLayoutManager(context, viewModel.getColumns())
             edgeEffectFactory = RecyclerEdgeEffectFactory()
-
             setItemViewCacheSize(1000)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (viewModel.updateList())
-            recyclerAdapter.notifyDataSetChanged()
+        viewModel.updateList()
     }
 
     override fun onBackPressed() {}
