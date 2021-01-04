@@ -7,13 +7,17 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
         android:adjustViewBounds="true"
         android:id="@+id/img"
         tools:ignore="ContentDescription" />
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="2dp"
+        android:paddingBottom="8dp"
         android:lines="1"
         android:ellipsize="end"
         android:textColor="@android:color/white"
