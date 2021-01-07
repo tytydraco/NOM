@@ -7,7 +7,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/recycler"
-        android:fadingEdgeLength="40dp"
-        android:requiresFadingEdge="vertical" />
+        android:id="@+id/recycler" />
 </LinearLayout>
