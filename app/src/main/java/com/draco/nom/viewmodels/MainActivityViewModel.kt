@@ -3,7 +3,10 @@ package com.draco.nom.viewmodels
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.hardware.display.DisplayManager
+import android.util.DisplayMetrics
+import android.util.Log
 import androidx.core.hardware.display.DisplayManagerCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -50,8 +53,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             appList.value = newAppList.toTypedArray()
     }
 
-    fun getColumns(): Int {
-        val displayMetrics = context.resources.displayMetrics
+    fun getColumns(displayMetrics: DisplayMetrics): Int {
         val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
         val iconSize = context.resources.getDimension(R.dimen.icon_size) / displayMetrics.density
         return (screenWidthDp / iconSize).toInt()
