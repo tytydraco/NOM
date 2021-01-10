@@ -27,11 +27,11 @@ class MainActivity: AppCompatActivity() {
             setHasStableIds(true)
         }
 
-        with (findViewById<RecyclerView>(R.id.recycler)) {
-            adapter = recyclerAdapter
-            layoutManager = GridLayoutManager(context, viewModel.getColumns())
-            edgeEffectFactory = RecyclerEdgeEffectFactory()
-            setItemViewCacheSize(1000)
+        findViewById<RecyclerView>(R.id.recycler).also {
+            it.adapter = recyclerAdapter
+            it.layoutManager = GridLayoutManager(this, viewModel.getColumns())
+            it.edgeEffectFactory = RecyclerEdgeEffectFactory()
+            it.setItemViewCacheSize(1000)
         }
     }
 
