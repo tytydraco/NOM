@@ -2,6 +2,7 @@ package com.draco.nom.views
 
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -37,12 +38,18 @@ class MainActivity: AppCompatActivity() {
             setHasStableIds(true)
         }
 
-        val columns = viewModel.getColumns(resources.displayMetrics)
-        findViewById<RecyclerView>(R.id.recycler).also {
-            it.adapter = recyclerAdapter
-            it.layoutManager = GridLayoutManager(this, columns)
-            it.edgeEffectFactory = RecyclerEdgeEffectFactory()
-            it.setItemViewCacheSize(1000)
+        val displayMetrics = DisplayMetrics()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+            display!!.getRealMetrics(displayMetrics)
+        else
+            windowManager.defaultDisplay.getRealMetrics(displayMetrics)
+
+        val columns = viewModel.getColumns(displayMetrics)
+        findViewById<RecyclerView>(R.id.recycler).apply {
+            adapter = recyclerAdapter
+            layoutManager = GridLayoutManager(this@MainActivity, columns)
+            edgeEffectFactory = RecyclerEdgeEffectFactory()
+            setItemViewCacheSize(1000)
         }
     }
 
