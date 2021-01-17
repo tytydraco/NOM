@@ -1,7 +1,6 @@
 package com.draco.nom.views
 
 import android.os.Bundle
-import android.util.DisplayMetrics
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,7 +9,6 @@ import com.draco.nom.R
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
 import com.draco.nom.recyclers.RecyclerEdgeEffectFactory
 import com.draco.nom.viewmodels.MainActivityViewModel
-
 
 class MainActivity: AppCompatActivity() {
     private val viewModel: MainActivityViewModel by viewModels()
