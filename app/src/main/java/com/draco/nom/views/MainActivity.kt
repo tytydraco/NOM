@@ -20,8 +20,8 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.getAppList().observe(this) {
-            recyclerAdapter.appList = viewModel.getAppList().value!!
+        viewModel.appList.observe(this) {
+            recyclerAdapter.appList = viewModel.appList.value!!
             recyclerAdapter.notifyDataSetChanged()
         }
 

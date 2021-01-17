@@ -18,8 +18,8 @@ import java.util.*
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val context = application.applicationContext
 
-    private val appList = MutableLiveData<Array<AppInfo>>()
-    fun getAppList(): LiveData<Array<AppInfo>> = appList
+    private val _appList = MutableLiveData<Array<AppInfo>>()
+    val appList: LiveData<Array<AppInfo>> = _appList
 
     init {
         updateList()
@@ -49,8 +49,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             it.label.toLowerCase(Locale.getDefault())
         }
 
-        if (!appList.value.contentEquals(newAppList.toTypedArray()))
-            appList.value = newAppList.toTypedArray()
+        if (!_appList.value.contentEquals(newAppList.toTypedArray()))
+            _appList.value = newAppList.toTypedArray()
     }
 
     fun getColumns(displayMetrics: DisplayMetrics): Int {
