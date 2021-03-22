@@ -13,6 +13,7 @@ import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.draco.nom.R
 import com.draco.nom.models.AppInfo
 import java.util.*
@@ -72,6 +73,8 @@ class LauncherRecyclerAdapter(
         /* Setup app icons and labels */
         Glide.with(holder.img)
             .load(context.packageManager.getApplicationIcon(info.id))
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.ic_baseline_android_24)
             .circleCrop()
             .into(holder.img)
 
