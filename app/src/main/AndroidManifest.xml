@@ -17,9 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NOM"
         android:stateNotNeeded="true"
-        android:resumeWhilePausing="true">
+        android:resumeWhilePausing="true"
+        android:hardwareAccelerated="true">
         <activity android:name=".views.MainActivity"
-            android:excludeFromRecents="true">
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
