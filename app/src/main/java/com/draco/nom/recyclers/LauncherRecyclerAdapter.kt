@@ -74,7 +74,7 @@ class LauncherRecyclerAdapter(
         Glide.with(holder.img)
             .load(context.packageManager.getApplicationIcon(info.id))
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.drawable.ic_baseline_android_24)
+            .placeholder(R.drawable.ic_baseline_category_24)
             .circleCrop()
             .into(holder.img)
 
