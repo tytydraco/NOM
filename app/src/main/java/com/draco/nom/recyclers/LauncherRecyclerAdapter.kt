@@ -76,7 +76,7 @@ class LauncherRecyclerAdapter(
             .load(context.packageManager.getApplicationIcon(info.id))
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .placeholder(R.drawable.ic_baseline_category_24)
-            .thumbnail(0.25f)
+            .thumbnail(0.5f)
             .transition(DrawableTransitionOptions.withCrossFade())
             .circleCrop()
             .into(holder.img)
