@@ -12,8 +12,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.preference.PreferenceManager
 import com.draco.nom.R
 import com.draco.nom.models.AppInfo
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -21,6 +24,7 @@ import kotlin.coroutines.coroutineContext
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val context = application.applicationContext
+    private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     private val _appList = MutableLiveData<Array<AppInfo>>()
     val appList: LiveData<Array<AppInfo>> = _appList
@@ -29,7 +33,26 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         updateList()
     }
 
+    private fun loadSavedList() {
+        sharedPreferences.getString("saved_list", null)?.let {
+            val newAppList = Gson().fromJson<List<AppInfo>>(it, object : TypeToken<List<AppInfo>>() {}.type)
+            
+            if (!_appList.value.contentEquals(newAppList.toTypedArray()))
+                _appList.postValue(newAppList.toTypedArray())
+        }
+    }
+
+    private fun saveSavedList() {
+        val gson = Gson().toJson(_appList.value)
+        with (sharedPreferences.edit()) {
+            putString("saved_list", gson)
+            apply()
+        }
+    }
+
     fun updateList() {
+        loadSavedList()
+
         viewModelScope.launch(Dispatchers.IO) {
             val launcherIntent = Intent(Intent.ACTION_MAIN, null).apply {
                 addCategory(Intent.CATEGORY_LAUNCHER)
@@ -54,8 +77,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 it.label.toLowerCase(Locale.getDefault())
             }
 
-            if (!_appList.value.contentEquals(newAppList.toTypedArray()))
+            if (!_appList.value.contentEquals(newAppList.toTypedArray())) {
                 _appList.postValue(newAppList.toTypedArray())
+                saveSavedList()
+            }
         }
     }
 
