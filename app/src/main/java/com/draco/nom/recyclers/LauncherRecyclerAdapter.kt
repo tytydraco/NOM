@@ -14,6 +14,7 @@ import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.draco.nom.R
 import com.draco.nom.models.AppInfo
 import java.util.*
@@ -76,6 +77,7 @@ class LauncherRecyclerAdapter(
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .placeholder(R.drawable.ic_baseline_category_24)
             .thumbnail(0.25f)
+            .transition(DrawableTransitionOptions.withCrossFade())
             .circleCrop()
             .into(holder.img)
 
