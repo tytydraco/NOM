@@ -36,7 +36,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private fun loadSavedList() {
         sharedPreferences.getString("saved_list", null)?.let {
             val newAppList = Gson().fromJson<List<AppInfo>>(it, object : TypeToken<List<AppInfo>>() {}.type)
-            
+
             if (!_appList.value.contentEquals(newAppList.toTypedArray()))
                 _appList.postValue(newAppList.toTypedArray())
         }

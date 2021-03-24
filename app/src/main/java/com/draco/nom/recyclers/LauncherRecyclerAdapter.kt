@@ -53,10 +53,6 @@ class LauncherRecyclerAdapter(
         val appIntent = context.packageManager.getLaunchIntentForPackage(info.id)
         appIntent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
-        val settingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        settingsIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        settingsIntent.data = Uri.fromParts("package", info.id, null)
-
         holder.itemView.setOnClickListener {
             try {
                 context.startActivity(appIntent)
@@ -64,6 +60,10 @@ class LauncherRecyclerAdapter(
         }
 
         holder.itemView.setOnLongClickListener {
+            val settingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            settingsIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            settingsIntent.data = Uri.fromParts("package", info.id, null)
+
             try {
                 context.startActivity(settingsIntent)
             } catch (_: Exception) {}
