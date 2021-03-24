@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NOM</string>
+    <string name="pref_saved_list">saved_list</string>
 </resources>
