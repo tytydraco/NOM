@@ -50,10 +50,10 @@ class LauncherRecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = appList[position]
 
-        val appIntent = context.packageManager.getLaunchIntentForPackage(info.id)
-        appIntent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
         holder.itemView.setOnClickListener {
+            val appIntent = context.packageManager.getLaunchIntentForPackage(info.id)
+            appIntent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
             try {
                 context.startActivity(appIntent)
             } catch (_: Exception) {}
