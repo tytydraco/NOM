@@ -8,7 +8,7 @@
     android:orientation="vertical">
     <ImageView
         android:layout_width="@dimen/icon_size"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/icon_size"
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
         android:adjustViewBounds="true"
@@ -16,7 +16,7 @@
         tools:ignore="ContentDescription" />
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="@dimen/icon_size"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/text_height"
         android:lines="1"
         android:ellipsize="end"
         android:textColor="@android:color/white"
