@@ -43,10 +43,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     private fun saveSavedList() {
-        val gson = Gson().toJson(_appList.value)
-        with (sharedPreferences.edit()) {
-            putString("saved_list", gson)
-            apply()
+        Gson().toJson(_appList.value)?.let {
+            with (sharedPreferences.edit()) {
+                putString("saved_list", it)
+                apply()
+            }
         }
     }
 
