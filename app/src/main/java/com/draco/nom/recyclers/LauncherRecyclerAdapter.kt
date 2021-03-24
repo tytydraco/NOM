@@ -73,7 +73,7 @@ class LauncherRecyclerAdapter(
         /* Setup app icons and labels */
         Glide.with(holder.img)
             .load(context.packageManager.getApplicationIcon(info.id))
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .placeholder(R.drawable.ic_baseline_category_24)
             .thumbnail(0.25f)
             .circleCrop()
