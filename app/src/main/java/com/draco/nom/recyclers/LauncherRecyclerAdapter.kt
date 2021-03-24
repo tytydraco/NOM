@@ -2,6 +2,7 @@ package com.draco.nom.recyclers
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -52,8 +53,8 @@ class LauncherRecyclerAdapter(
         val info = appList[position]
 
         holder.itemView.setOnClickListener {
-            val appIntent = context.packageManager.getLaunchIntentForPackage(info.id)
-            appIntent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            val appIntent = context.packageManager.getLaunchIntentForPackage(info.id) ?: return@setOnClickListener
+            appIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
             try {
                 context.startActivity(appIntent)
@@ -72,14 +73,16 @@ class LauncherRecyclerAdapter(
         }
 
         /* Setup app icons and labels */
-        Glide.with(holder.img)
-            .load(context.packageManager.getApplicationIcon(info.id))
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .thumbnail(0.5f)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .fitCenter()
-            .circleCrop()
-            .into(holder.img)
+        try {
+            Glide.with(holder.img)
+                .load(context.packageManager.getApplicationIcon(info.id))
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .thumbnail(0.5f)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .fitCenter()
+                .circleCrop()
+                .into(holder.img)
+        } catch (_: PackageManager.NameNotFoundException) {}
 
         holder.name.text = info.label
         holder.img.contentDescription = info.label
