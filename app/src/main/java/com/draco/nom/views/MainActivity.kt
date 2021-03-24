@@ -40,6 +40,7 @@ class MainActivity: AppCompatActivity() {
             adapter = recyclerAdapter
             layoutManager = GridLayoutManager(this@MainActivity, columns)
             edgeEffectFactory = RecyclerEdgeEffectFactory()
+            setHasFixedSize(true)
             setItemViewCacheSize(1000)
         }
     }

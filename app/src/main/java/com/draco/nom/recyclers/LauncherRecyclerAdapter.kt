@@ -75,9 +75,9 @@ class LauncherRecyclerAdapter(
         Glide.with(holder.img)
             .load(context.packageManager.getApplicationIcon(info.id))
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .placeholder(R.drawable.ic_baseline_category_24)
             .thumbnail(0.5f)
             .transition(DrawableTransitionOptions.withCrossFade())
+            .fitCenter()
             .circleCrop()
             .into(holder.img)
 
