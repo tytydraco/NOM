@@ -9,8 +9,8 @@ android {
         applicationId "com.draco.nom"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 65
-        versionName "2.0.3"
+        versionCode 66
+        versionName "2.0.4"
     }
 
     buildTypes {
