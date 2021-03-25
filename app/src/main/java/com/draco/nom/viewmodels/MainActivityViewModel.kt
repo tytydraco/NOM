@@ -80,7 +80,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
             if (!_appList.value.contentEquals(newAppList.toTypedArray())) {
                 _appList.postValue(newAppList.toTypedArray())
-                saveSavedList()
+                viewModelScope.launch(Dispatchers.Main) {
+                    saveSavedList()
+                }
             }
         }
     }
