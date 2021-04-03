@@ -74,8 +74,9 @@ class LauncherRecyclerAdapter(
 
         /* Setup app icons and labels */
         try {
-            Glide.with(holder.img)
-                .load(context.packageManager.getApplicationIcon(info.id))
+            val id = context.packageManager.getApplicationIcon(info.id)
+            Glide.with(context)
+                .load(id)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .thumbnail(0.5f)
                 .transition(DrawableTransitionOptions.withCrossFade())
