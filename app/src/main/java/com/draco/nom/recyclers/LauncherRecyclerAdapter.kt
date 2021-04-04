@@ -82,7 +82,9 @@ class LauncherRecyclerAdapter(
                 .fitCenter()
                 .circleCrop()
                 .into(holder.img)
-        } catch (_: PackageManager.NameNotFoundException) {}
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         holder.name.text = info.label
         holder.img.contentDescription = info.label
