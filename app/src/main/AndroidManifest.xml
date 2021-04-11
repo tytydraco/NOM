@@ -21,7 +21,8 @@
         android:hardwareAccelerated="true">
         <activity android:name=".views.MainActivity"
             android:excludeFromRecents="true"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
