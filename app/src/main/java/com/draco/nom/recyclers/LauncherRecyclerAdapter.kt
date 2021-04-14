@@ -78,8 +78,6 @@ class LauncherRecyclerAdapter(
             Glide.with(context)
                 .load(id)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .fitCenter()
                 .circleCrop()
                 .into(holder.img)
         } catch (e: Exception) {

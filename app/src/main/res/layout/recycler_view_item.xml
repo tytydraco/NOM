@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/icon_size"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:paddingVertical="8dp"
     android:orientation="vertical">
     <ImageView
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:id="@+id/img"
         tools:ignore="ContentDescription" />
     <com.google.android.material.textview.MaterialTextView
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/text_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:lines="1"
         android:ellipsize="end"
         android:textColor="@android:color/white"
+        android:paddingHorizontal="@dimen/text_padding"
         android:textAlignment="center"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size"
         android:id="@+id/name" />
 </LinearLayout>
