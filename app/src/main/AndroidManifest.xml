@@ -17,8 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NOM"
         android:stateNotNeeded="true"
-        android:resumeWhilePausing="true"
-        android:hardwareAccelerated="true">
+        android:resumeWhilePausing="true">
         <activity android:name=".views.MainActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
