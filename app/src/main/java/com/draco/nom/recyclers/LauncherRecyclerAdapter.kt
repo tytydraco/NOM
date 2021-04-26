@@ -2,38 +2,23 @@ package com.draco.nom.recyclers
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.dynamicanimation.animation.SpringAnimation
-import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.draco.nom.R
-import com.draco.nom.models.AppInfo
 import java.util.*
 
 class LauncherRecyclerAdapter(
     private val context: Context,
-    var appList: Array<AppInfo>
+    var packageIdList: List<String>
 ): RecyclerView.Adapter<LauncherRecyclerAdapter.ViewHolder>() {
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val img = itemView.findViewById(R.id.img) as ImageView
-        val name = itemView.findViewById(R.id.name) as TextView
-
-        val translationY = SpringAnimation(itemView, SpringAnimation.TRANSLATION_Y).apply {
-            spring = SpringForce()
-                .setFinalPosition(0f)
-                .setDampingRatio(SpringForce.DAMPING_RATIO_LOW_BOUNCY)
-                .setStiffness(SpringForce.STIFFNESS_MEDIUM)
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,18 +27,18 @@ class LauncherRecyclerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return appList.size
+        return packageIdList.size
     }
 
     override fun getItemId(position: Int): Long {
-        return appList[position].hashCode().toLong()
+        return packageIdList[position].hashCode().toLong()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val info = appList[position]
+        val packageId = packageIdList[position]
 
         holder.itemView.setOnClickListener {
-            val appIntent = context.packageManager.getLaunchIntentForPackage(info.id) ?: return@setOnClickListener
+            val appIntent = context.packageManager.getLaunchIntentForPackage(packageId) ?: return@setOnClickListener
             appIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
             try {
@@ -64,27 +49,23 @@ class LauncherRecyclerAdapter(
         holder.itemView.setOnLongClickListener {
             val settingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             settingsIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            settingsIntent.data = Uri.fromParts("package", info.id, null)
+            settingsIntent.data = Uri.fromParts("package", packageId, null)
 
             try {
                 context.startActivity(settingsIntent)
             } catch (_: Exception) {}
-            return@setOnLongClickListener true
+
+            true
         }
 
-        /* Setup app icons and labels */
         try {
-            val id = context.packageManager.getApplicationIcon(info.id)
+            val icon = context.packageManager.getApplicationIcon(packageId)
             Glide.with(context)
-                .load(id)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .load(icon)
                 .circleCrop()
                 .into(holder.img)
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-        holder.name.text = info.label
-        holder.img.contentDescription = info.label
     }
 }
