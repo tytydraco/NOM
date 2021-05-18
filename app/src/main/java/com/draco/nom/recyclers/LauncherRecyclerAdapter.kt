@@ -11,6 +11,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.draco.nom.R
+import com.google.android.material.textview.MaterialTextView
 import java.util.*
 
 class LauncherRecyclerAdapter(
@@ -19,6 +20,7 @@ class LauncherRecyclerAdapter(
 ): RecyclerView.Adapter<LauncherRecyclerAdapter.ViewHolder>() {
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val img = itemView.findViewById(R.id.img) as ImageView
+        val text = itemView.findViewById(R.id.text) as MaterialTextView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -67,5 +69,9 @@ class LauncherRecyclerAdapter(
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        holder.text.text = context.packageManager
+            .getApplicationInfo(packageId, 0)
+            .loadLabel(context.packageManager)
     }
 }

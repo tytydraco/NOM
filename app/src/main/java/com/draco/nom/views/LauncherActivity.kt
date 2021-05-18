@@ -3,7 +3,7 @@ package com.draco.nom.views
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.R
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
@@ -30,10 +30,9 @@ class LauncherActivity: AppCompatActivity() {
             setHasStableIds(true)
         }
 
-        val columns = viewModel.getColumns(this)
         findViewById<RecyclerView>(R.id.recycler).apply {
             adapter = recyclerAdapter
-            layoutManager = GridLayoutManager(this@LauncherActivity, columns)
+            layoutManager = LinearLayoutManager(this@LauncherActivity)
             setHasFixedSize(true)
             setItemViewCacheSize(1000)
         }

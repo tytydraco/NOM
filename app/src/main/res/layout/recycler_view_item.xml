@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/icon_size"
-    android:layout_height="@dimen/icon_size">
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_height"
+    android:layout_marginVertical="@dimen/item_vertical_margin"
+    android:layout_marginHorizontal="@dimen/item_horizontal_margin"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/icon_margin"
         android:id="@+id/img"
         tools:ignore="ContentDescription" />
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Menu"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textAlignment="textEnd"
+        android:layout_marginStart="@dimen/item_text_start_margin"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:id="@+id/text" />
 </LinearLayout>
