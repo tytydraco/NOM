@@ -18,7 +18,6 @@
         style="@style/TextAppearance.AppCompat.Menu"
         android:textAllCaps="true"
         android:textStyle="bold"
-        android:textAlignment="textEnd"
         android:layout_marginStart="@dimen/item_text_start_margin"
         android:maxLines="1"
         android:ellipsize="end"
