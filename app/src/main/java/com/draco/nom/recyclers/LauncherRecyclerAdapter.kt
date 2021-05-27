@@ -70,8 +70,13 @@ class LauncherRecyclerAdapter(
             e.printStackTrace()
         }
 
-        holder.text.text = context.packageManager
-            .getApplicationInfo(packageId, 0)
-            .loadLabel(context.packageManager)
+        try {
+            holder.text.text = context.packageManager
+                .getApplicationInfo(packageId, 0)
+                .loadLabel(context.packageManager)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 }
