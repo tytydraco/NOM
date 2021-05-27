@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_height"
     android:layout_marginVertical="@dimen/item_vertical_margin"
-    android:layout_marginHorizontal="@dimen/item_horizontal_margin"
+    android:paddingHorizontal="@dimen/item_horizontal_padding"
     android:gravity="center_vertical"
     android:orientation="horizontal">
     <ImageView
