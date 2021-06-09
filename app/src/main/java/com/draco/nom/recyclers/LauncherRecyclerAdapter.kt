@@ -64,7 +64,6 @@ class LauncherRecyclerAdapter(
             val icon = context.packageManager.getApplicationIcon(packageId)
             Glide.with(context)
                 .load(icon)
-                .circleCrop()
                 .into(holder.img)
         } catch (e: Exception) {
             e.printStackTrace()
