@@ -6,8 +6,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.BuildConfig
 import com.draco.nom.models.App
+import com.draco.nom.recyclers.LauncherRecyclerAdapter
+import com.draco.nom.recyclers.scrollers.SmoothScrollerTopAndFocus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -53,4 +57,31 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
                 _packageIdNameMap.postValue(newAppList)
         }
     }
+
+    /**
+     * Scroll to app that starts with the letter inputted by the user
+     */
+    fun scrollToAppStartingWith(char: Char, recycler: RecyclerView) {
+        val letter = char.toString().lowercase()
+        val adapter = recycler.adapter as LauncherRecyclerAdapter
+        val position = adapter.appList.indexOfFirst {
+            it.name.lowercase().startsWith(letter)
+        }
+
+        if (position == -1)
+            return
+
+        val context = getApplication<Application>().applicationContext
+        val layoutManager = recycler.layoutManager as LinearLayoutManager
+        val scroller = SmoothScrollerTopAndFocus(context).apply {
+            targetPosition = position
+        }
+
+        layoutManager.startSmoothScroll(scroller)
+    }
+
+    /**
+     * Check if a character is alphanumeric
+     */
+    fun isCharAlphanumeric(char: Char): Boolean = char.toString().matches(Regex("[a-zA-Z0-9]+"))
 }

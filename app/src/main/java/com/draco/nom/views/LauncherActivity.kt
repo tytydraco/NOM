@@ -1,6 +1,7 @@
 package com.draco.nom.views
 
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +41,17 @@ class LauncherActivity: AppCompatActivity() {
             setItemViewCacheSize(1000)
             layoutManager!!.isItemPrefetchEnabled = true
         }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        val char = event.displayLabel
+        if (!viewModel.isCharAlphanumeric(char))
+            return super.onKeyDown(keyCode, event)
+
+        viewModel.scrollToAppStartingWith(char, recycler)
+
+        return true
+
     }
 
     override fun onResume() {
