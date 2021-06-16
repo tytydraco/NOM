@@ -44,14 +44,10 @@ class LauncherActivity: AppCompatActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        val char = event.displayLabel
-        if (!viewModel.isCharAlphanumeric(char))
-            return super.onKeyDown(keyCode, event)
-
-        viewModel.scrollToAppStartingWith(char, recycler)
-
-        return true
-
+        return if (viewModel.handleKeyboardNavEvent(event, recycler))
+            true
+        else
+            super.onKeyDown(keyCode, event)
     }
 
     override fun onResume() {

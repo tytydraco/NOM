@@ -2,6 +2,8 @@ package com.draco.nom.viewmodels
 
 import android.app.Application
 import android.content.Intent
+import android.view.KeyEvent
+import androidx.core.view.size
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +14,7 @@ import com.draco.nom.BuildConfig
 import com.draco.nom.models.App
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
 import com.draco.nom.recyclers.scrollers.SmoothScrollerTopAndFocus
+import com.draco.nom.repositories.constants.ScrollDirection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -59,13 +62,12 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
     }
 
     /**
-     * Scroll to app that starts with the letter inputted by the user
+     * Scroll recycler to app that starts with the letter inputted by the user
      */
-    fun scrollToAppStartingWith(char: Char, recycler: RecyclerView) {
-        val letter = char.toString().lowercase()
+    private fun scrollToAppStartingWith(recycler: RecyclerView, starting: String) {
         val adapter = recycler.adapter as LauncherRecyclerAdapter
         val position = adapter.appList.indexOfFirst {
-            it.name.lowercase().startsWith(letter)
+            it.name.lowercase().startsWith(starting)
         }
 
         if (position == -1)
@@ -78,6 +80,63 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
         }
 
         layoutManager.startSmoothScroll(scroller)
+    }
+
+    /**
+     * Scroll recycler by an entire page
+     */
+    private fun pageScroll(recycler: RecyclerView, direction: ScrollDirection) {
+        val context = getApplication<Application>().applicationContext
+        val adapter = recycler.adapter as LauncherRecyclerAdapter
+        val layoutManager = recycler.layoutManager as LinearLayoutManager
+        val newPosition = when (direction) {
+            ScrollDirection.UP -> {
+                val topPos = layoutManager.findFirstVisibleItemPosition()
+                val bottomPos = layoutManager.findLastVisibleItemPosition()
+                val totalVisibleItems = bottomPos - topPos
+                val newPos = topPos - totalVisibleItems
+
+                newPos.coerceAtLeast(0)
+            }
+            ScrollDirection.DOWN -> {
+                val bottomPos = layoutManager.findLastVisibleItemPosition()
+                val lastItemPosition = adapter.itemCount - 1
+                bottomPos.coerceAtMost(lastItemPosition)
+            }
+        }
+        val scroller = SmoothScrollerTopAndFocus(context).apply {
+            targetPosition = newPosition
+        }
+
+        layoutManager.startSmoothScroll(scroller)
+    }
+
+    /**
+     * Attempt to handle user keyboard navigation events
+     * @return True if the event was handled
+     */
+    fun handleKeyboardNavEvent(event: KeyEvent, recycler: RecyclerView): Boolean {
+        val char = event.displayLabel
+
+        if (isCharAlphanumeric(char)) {
+            val letter = char.toString().lowercase()
+            scrollToAppStartingWith(recycler, letter)
+            return true
+        }
+
+        when (event.keyCode) {
+            KeyEvent.KEYCODE_PAGE_UP -> {
+                pageScroll(recycler, ScrollDirection.UP)
+                return true
+            }
+
+            KeyEvent.KEYCODE_PAGE_DOWN -> {
+                pageScroll(recycler, ScrollDirection.DOWN)
+                return true
+            }
+        }
+
+        return false
     }
 
     /**
