@@ -38,6 +38,10 @@ class LauncherActivity: AppCompatActivity() {
             }
         }
 
+        viewModel.packageListProgress.observe(this) {
+            progress.progress = it
+        }
+
         recyclerAdapter = LauncherRecyclerAdapter(this, emptyList()).apply {
             setHasStableIds(true)
         }

@@ -17,12 +17,16 @@ import com.draco.nom.recyclers.scrollers.SmoothScrollerTopAndFocus
 import com.draco.nom.repositories.constants.ScrollDirection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 class LauncherActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val packageManager = application.applicationContext.packageManager
 
     private val _packageIdNameMap = MutableLiveData<List<App>>()
     val packageIdNameMap: LiveData<List<App>> = _packageIdNameMap
+
+    private val _packageListProgress = MutableLiveData(0)
+    val packageListProgress: LiveData<Int> = _packageListProgress
 
     /**
      * Refresh local package id list
@@ -39,7 +43,9 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
 
             /* Add all package IDs to a new list */
             val newAppList = mutableListOf<App>()
-            for (activity in activities) {
+            _packageListProgress.postValue(0)
+            for (activityIndex in activities.indices) {
+                val activity = activities[activityIndex]
                 val packageId = activity.activityInfo.packageName
                 if (packageId != BuildConfig.APPLICATION_ID) {
                     newAppList += App(
@@ -50,6 +56,8 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
                         packageManager.getApplicationIcon(packageId)
                     )
                 }
+                val progress = ((activityIndex.toFloat() / activities.size) * 100).roundToInt()
+                _packageListProgress.postValue(progress)
             }
 
             /* Sort this new map by application label */
