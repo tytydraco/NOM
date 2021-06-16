@@ -2,6 +2,8 @@ package com.draco.nom.views
 
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,21 +15,27 @@ import com.draco.nom.viewmodels.LauncherActivityViewModel
 class LauncherActivity: AppCompatActivity() {
     private val viewModel: LauncherActivityViewModel by viewModels()
     private lateinit var recyclerAdapter: LauncherRecyclerAdapter
+
     private lateinit var recycler: RecyclerView
+    private lateinit var progress: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         recycler = findViewById(R.id.recycler)
+        progress = findViewById(R.id.progress)
 
         window.decorView.setOnApplyWindowInsetsListener { _, windowInsets ->
             windowInsets
         }
 
         viewModel.packageIdNameMap.observe(this) {
-            recyclerAdapter.appList = it!!
-            recyclerAdapter.notifyDataSetChanged()
+            if (it != null) {
+                progress.visibility = View.GONE
+                recyclerAdapter.appList = it
+                recyclerAdapter.notifyDataSetChanged()
+            }
         }
 
         recyclerAdapter = LauncherRecyclerAdapter(this, emptyList()).apply {
