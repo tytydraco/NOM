@@ -111,6 +111,21 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
         layoutManager.startSmoothScroll(scroller)
     }
 
+    private fun fullScroll(recycler: RecyclerView, direction: ScrollDirection) {
+        val context = getApplication<Application>().applicationContext
+        val adapter = recycler.adapter as LauncherRecyclerAdapter
+        val layoutManager = recycler.layoutManager as LinearLayoutManager
+        val newPosition = when (direction) {
+            ScrollDirection.UP -> 0
+            ScrollDirection.DOWN -> adapter.itemCount - 1
+        }
+        val scroller = SmoothScrollerTopAndFocus(context).apply {
+            targetPosition = newPosition
+        }
+
+        layoutManager.startSmoothScroll(scroller)
+    }
+
     /**
      * Attempt to handle user keyboard navigation events
      * @return True if the event was handled
@@ -132,6 +147,16 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
 
             KeyEvent.KEYCODE_PAGE_DOWN -> {
                 pageScroll(recycler, ScrollDirection.DOWN)
+                return true
+            }
+
+            KeyEvent.KEYCODE_MOVE_HOME -> {
+                fullScroll(recycler, ScrollDirection.UP)
+                return true
+            }
+
+            KeyEvent.KEYCODE_MOVE_END -> {
+                fullScroll(recycler, ScrollDirection.DOWN)
                 return true
             }
         }
