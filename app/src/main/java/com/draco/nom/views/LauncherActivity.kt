@@ -12,17 +12,20 @@ import com.draco.nom.viewmodels.LauncherActivityViewModel
 class LauncherActivity: AppCompatActivity() {
     private val viewModel: LauncherActivityViewModel by viewModels()
     private lateinit var recyclerAdapter: LauncherRecyclerAdapter
+    private lateinit var recycler: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        recycler = findViewById(R.id.recycler)
+
         window.decorView.setOnApplyWindowInsetsListener { _, windowInsets ->
             windowInsets
         }
 
-        viewModel.packageIdList.observe(this) {
-            recyclerAdapter.packageIdList = viewModel.packageIdList.value!!
+        viewModel.packageIdNameMap.observe(this) {
+            recyclerAdapter.appList = it!!
             recyclerAdapter.notifyDataSetChanged()
         }
 
@@ -30,11 +33,12 @@ class LauncherActivity: AppCompatActivity() {
             setHasStableIds(true)
         }
 
-        findViewById<RecyclerView>(R.id.recycler).apply {
+        recycler.apply {
             adapter = recyclerAdapter
             layoutManager = LinearLayoutManager(this@LauncherActivity)
             setHasFixedSize(true)
             setItemViewCacheSize(1000)
+            layoutManager!!.isItemPrefetchEnabled = true
         }
     }
 

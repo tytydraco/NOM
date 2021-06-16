@@ -11,12 +11,13 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.draco.nom.R
+import com.draco.nom.models.App
 import com.google.android.material.textview.MaterialTextView
 import java.util.*
 
 class LauncherRecyclerAdapter(
     private val context: Context,
-    var packageIdList: List<String>
+    var appList: List<App>
 ): RecyclerView.Adapter<LauncherRecyclerAdapter.ViewHolder>() {
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val img = itemView.findViewById(R.id.img) as ImageView
@@ -29,15 +30,17 @@ class LauncherRecyclerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return packageIdList.size
+        return appList.size
     }
 
     override fun getItemId(position: Int): Long {
-        return packageIdList[position].hashCode().toLong()
+        return appList[position].name.hashCode().toLong()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val packageId = packageIdList[position]
+        val packageId = appList.toList()[position].id
+        val packageName = appList.toList()[position].name
+        val packageIcon = appList.toList()[position].icon
 
         holder.itemView.setOnClickListener {
             val appIntent = context.packageManager.getLaunchIntentForPackage(packageId) ?: return@setOnClickListener
@@ -60,23 +63,10 @@ class LauncherRecyclerAdapter(
             true
         }
 
-        try {
-            val icon = context.packageManager.getApplicationIcon(packageId)
-            Glide.with(context)
-                .load(icon)
-                .placeholder(R.drawable.ic_baseline_block_24)
-                .into(holder.img)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        try {
-            holder.text.text = context.packageManager
-                .getApplicationInfo(packageId, 0)
-                .loadLabel(context.packageManager)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
+        holder.text.text = packageName
+        Glide.with(context)
+            .load(packageIcon)
+            .placeholder(R.drawable.ic_baseline_block_24)
+            .into(holder.img)
     }
 }

@@ -7,14 +7,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.draco.nom.BuildConfig
+import com.draco.nom.models.App
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LauncherActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val packageManager = application.applicationContext.packageManager
 
-    private val _packageIdList = MutableLiveData<List<String>>()
-    val packageIdList: LiveData<List<String>> = _packageIdList
+    private val _packageIdNameMap = MutableLiveData<List<App>>()
+    val packageIdNameMap: LiveData<List<App>> = _packageIdNameMap
 
     /**
      * Refresh local package id list
@@ -26,22 +27,30 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
                 addCategory(Intent.CATEGORY_LAUNCHER)
             }
 
-            /* Get all launcher activities sorted by name */
-            val activities = packageManager.queryIntentActivities(launcherIntent, 0).sortedBy {
-                it.loadLabel(packageManager).toString().lowercase()
-            }
+            /* Get all launcher activities */
+            val activities = packageManager.queryIntentActivities(launcherIntent, 0)
 
             /* Add all package IDs to a new list */
-            val newPackageIdList = mutableListOf<String>()
-            for (app in activities) {
-                val packageName = app.activityInfo.packageName
-                if (packageName != BuildConfig.APPLICATION_ID)
-                    newPackageIdList.add(packageName)
+            val newAppList = mutableListOf<App>()
+            for (activity in activities) {
+                val packageId = activity.activityInfo.packageName
+                if (packageId != BuildConfig.APPLICATION_ID) {
+                    newAppList += App(
+                        packageId,
+                        packageManager
+                            .getApplicationInfo(packageId, 0)
+                            .loadLabel(packageManager).toString(),
+                        packageManager.getApplicationIcon(packageId)
+                    )
+                }
             }
 
+            /* Sort this new map by application label */
+            newAppList.sortBy { it.name.lowercase() }
+
             /* Push this change */
-            if (_packageIdList.value != newPackageIdList)
-                _packageIdList.postValue(newPackageIdList)
+            if (_packageIdNameMap.value != newAppList)
+                _packageIdNameMap.postValue(newAppList)
         }
     }
 }
