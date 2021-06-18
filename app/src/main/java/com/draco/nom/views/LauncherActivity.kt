@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.R
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
+import com.draco.nom.recyclers.factories.LauncherEdgeEffectFactory
 import com.draco.nom.viewmodels.LauncherActivityViewModel
 
 class LauncherActivity: AppCompatActivity() {
@@ -49,6 +50,7 @@ class LauncherActivity: AppCompatActivity() {
         recycler.apply {
             adapter = recyclerAdapter
             layoutManager = LinearLayoutManager(this@LauncherActivity)
+            edgeEffectFactory = LauncherEdgeEffectFactory()
             setHasFixedSize(true)
             setItemViewCacheSize(1000)
             layoutManager!!.isItemPrefetchEnabled = true

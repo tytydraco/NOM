@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.dynamicanimation.animation.SpringAnimation
+import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.draco.nom.R
@@ -22,6 +24,13 @@ class LauncherRecyclerAdapter(
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val img = itemView.findViewById(R.id.img) as ImageView
         val text = itemView.findViewById(R.id.text) as MaterialTextView
+
+        val translationY = SpringAnimation(itemView, SpringAnimation.TRANSLATION_Y).apply {
+            spring = SpringForce()
+                .setFinalPosition(0f)
+                .setDampingRatio(SpringForce.DAMPING_RATIO_LOW_BOUNCY)
+                .setStiffness(SpringForce.STIFFNESS_MEDIUM)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
