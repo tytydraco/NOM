@@ -3,7 +3,6 @@ package com.draco.nom.viewmodels
 import android.app.Application
 import android.content.Intent
 import android.view.KeyEvent
-import androidx.core.view.size
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,6 +14,7 @@ import com.draco.nom.models.App
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
 import com.draco.nom.recyclers.scrollers.SmoothScrollerTopAndFocus
 import com.draco.nom.repositories.constants.ScrollDirection
+import com.draco.nom.utils.AppListSearcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -22,11 +22,13 @@ import kotlin.math.roundToInt
 class LauncherActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val packageManager = application.applicationContext.packageManager
 
-    private val _packageIdNameMap = MutableLiveData<List<App>>()
-    val packageIdNameMap: LiveData<List<App>> = _packageIdNameMap
+    private val _appList = MutableLiveData<List<App>>()
+    val appList: LiveData<List<App>> = _appList
 
     private val _packageListProgress = MutableLiveData(0)
     val packageListProgress: LiveData<Int> = _packageListProgress
+
+    private val appListSearcher = AppListSearcher()
 
     /**
      * Refresh local package id list
@@ -64,20 +66,15 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
             newAppList.sortBy { it.name.lowercase() }
 
             /* Push this change */
-            if (_packageIdNameMap.value != newAppList)
-                _packageIdNameMap.postValue(newAppList)
+            if (_appList.value != newAppList)
+                _appList.postValue(newAppList)
         }
     }
 
     /**
-     * Scroll recycler to app that starts with the letter inputted by the user
+     * Scroll recycler to list position
      */
-    private fun scrollToAppStartingWith(recycler: RecyclerView, starting: String) {
-        val adapter = recycler.adapter as LauncherRecyclerAdapter
-        val position = adapter.appList.indexOfFirst {
-            it.name.lowercase().startsWith(starting)
-        }
-
+    private fun smoothScrollToPosition(recycler: RecyclerView, position: Int) {
         if (position == -1)
             return
 
@@ -119,6 +116,9 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
         layoutManager.startSmoothScroll(scroller)
     }
 
+    /**
+     * Start to end scrolling
+     */
     private fun fullScroll(recycler: RecyclerView, direction: ScrollDirection) {
         val context = getApplication<Application>().applicationContext
         val adapter = recycler.adapter as LauncherRecyclerAdapter
@@ -139,14 +139,7 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
      * @return True if the event was handled
      */
     fun handleKeyboardNavEvent(event: KeyEvent, recycler: RecyclerView): Boolean {
-        val char = event.displayLabel
-
-        if (isCharAlphanumeric(char)) {
-            val letter = char.toString().lowercase()
-            scrollToAppStartingWith(recycler, letter)
-            return true
-        }
-
+        /* Handle paging */
         when (event.keyCode) {
             KeyEvent.KEYCODE_PAGE_UP -> {
                 pageScroll(recycler, ScrollDirection.UP)
@@ -169,11 +162,38 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
             }
         }
 
+        /* Handle meta keys for searcher */
+        val currentAppList = _appList.value!!
+        when (event.keyCode) {
+            KeyEvent.KEYCODE_DEL -> {
+                appListSearcher.broaden()
+                smoothScrollToPosition(recycler, appListSearcher.evaluate(currentAppList))
+                return true
+            }
+
+            KeyEvent.KEYCODE_ESCAPE -> {
+                appListSearcher.reset()
+                smoothScrollToPosition(recycler, appListSearcher.evaluate(currentAppList))
+                return true
+            }
+        }
+
+        /* Handle search terms */
+        val char = event.displayLabel
+        if (isCharAlphanumeric(char)) {
+            val letter = char.toString().lowercase()
+
+            appListSearcher.narrow(letter)
+            smoothScrollToPosition(recycler, appListSearcher.evaluate(currentAppList))
+
+            return true
+        }
+
         return false
     }
 
     /**
      * Check if a character is alphanumeric
      */
-    fun isCharAlphanumeric(char: Char): Boolean = char.toString().matches(Regex("[a-zA-Z0-9]+"))
+    private fun isCharAlphanumeric(char: Char): Boolean = char.toString().matches(Regex("[a-zA-Z0-9]+"))
 }

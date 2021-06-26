@@ -31,7 +31,7 @@ class LauncherActivity: AppCompatActivity() {
             windowInsets
         }
 
-        viewModel.packageIdNameMap.observe(this) {
+        viewModel.appList.observe(this) {
             if (it != null) {
                 progress.visibility = View.GONE
                 recyclerAdapter.appList = it
