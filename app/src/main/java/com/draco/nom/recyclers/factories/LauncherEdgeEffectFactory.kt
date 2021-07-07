@@ -15,9 +15,13 @@ class LauncherEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
     private var pullDownActivated = false
     var pullDownListener: (() -> Unit)? = null
 
-    var height = Resources.getSystem().displayMetrics.heightPixels
-    var translationYPullThreshold = height * PULL_DOWN_THRESHOLD
     var trueTranslationY = 0f
+
+
+    private fun getPullThreshold(): Float {
+        val height = Resources.getSystem().displayMetrics.heightPixels
+        return height * PULL_DOWN_THRESHOLD
+    }
 
     inner class RecyclerEdgeEffect(private val view: RecyclerView, direction: Int) : EdgeEffect(view.context) {
         private val directionModifier = if (direction == DIRECTION_TOP) 1 else -1
@@ -32,7 +36,7 @@ class LauncherEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
                 holder.itemView.translationY += translationYDelta
             }
 
-            if (!pullDownActivated && trueTranslationY >= translationYPullThreshold)
+            if (!pullDownActivated && trueTranslationY >= getPullThreshold())
                 pullDownActivated = true
         }
 

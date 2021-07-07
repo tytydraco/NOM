@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.BuildConfig
 import com.draco.nom.models.App
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
+import com.draco.nom.recyclers.factories.LauncherEdgeEffectFactory
 import com.draco.nom.recyclers.scrollers.SmoothScrollerTopAndFocus
 import com.draco.nom.repositories.constants.ScrollDirection
 import com.draco.nom.utils.AppListSearcher
@@ -33,6 +34,35 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
     val packageListProgress: LiveData<Int> = _packageListProgress
 
     private val appListSearcher = AppListSearcher()
+
+    /**
+     * Recycler adapter that has stable ids used for showing apps
+     */
+    val recyclerAdapter = LauncherRecyclerAdapter(application.applicationContext, emptyList()).apply {
+        setHasStableIds(true)
+    }
+
+    /**
+     *  When we pull down, show the keyboard to allow searches
+     */
+    private val launcherEdgeEffectFactory = LauncherEdgeEffectFactory().also {
+        it.pullDownListener = {
+            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+        }
+    }
+
+    /**
+     * Prepare the recycler view
+     */
+    fun prepareRecycler(context: Context, recycler: RecyclerView) {
+        recycler.apply {
+            adapter = recyclerAdapter
+            layoutManager = LinearLayoutManager(context)
+            edgeEffectFactory = launcherEdgeEffectFactory
+            setHasFixedSize(true)
+            setItemViewCacheSize(1000)
+        }
+    }
 
     /**
      * Refresh local package id list
@@ -194,13 +224,6 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
         }
 
         return false
-    }
-
-    /**
-     * Toggle the soft keyboard
-     */
-    fun toggleSoftKeyboard() {
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
     }
 
     /**
