@@ -1,8 +1,10 @@
 package com.draco.nom.viewmodels
 
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.view.KeyEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,6 +23,8 @@ import kotlin.math.roundToInt
 
 class LauncherActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val packageManager = application.applicationContext.packageManager
+    private val inputMethodManager = application.applicationContext
+        .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
     private val _appList = MutableLiveData<List<App>>()
     val appList: LiveData<List<App>> = _appList
@@ -190,6 +194,13 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
         }
 
         return false
+    }
+
+    /**
+     * Toggle the soft keyboard
+     */
+    fun toggleSoftKeyboard() {
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
     }
 
     /**
