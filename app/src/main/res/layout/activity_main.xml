@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:fadingEdgeLength="@dimen/item_fading_edge_length"
         android:requiresFadingEdge="vertical" />
-    <com.google.android.material.progressindicator.LinearProgressIndicator
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress"
         android:layout_width="@dimen/progress_bar_width"
         android:layout_height="wrap_content"
