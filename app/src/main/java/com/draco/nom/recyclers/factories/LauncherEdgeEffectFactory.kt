@@ -32,10 +32,8 @@ class LauncherEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
                 holder.itemView.translationY += translationYDelta
             }
 
-            if (!pullDownActivated && trueTranslationY >= translationYPullThreshold) {
+            if (!pullDownActivated && trueTranslationY >= translationYPullThreshold)
                 pullDownActivated = true
-                pullDownListener?.invoke()
-            }
         }
 
         override fun onPull(deltaDistance: Float) {
@@ -50,8 +48,14 @@ class LauncherEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
 
         override fun onRelease() {
             super.onRelease()
-            pullDownActivated = false
+
+            if (pullDownActivated) {
+                pullDownListener?.invoke()
+                pullDownActivated = false
+            }
+
             trueTranslationY = 0f
+
             for (child in view.children) {
                 val holder = view.getChildViewHolder(child) as LauncherRecyclerAdapter.ViewHolder
                 holder.translationY.start()
