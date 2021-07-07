@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.draco.nom.R
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
 import com.draco.nom.recyclers.factories.LauncherEdgeEffectFactory
@@ -17,6 +18,7 @@ class LauncherActivity: AppCompatActivity() {
     private val viewModel: LauncherActivityViewModel by viewModels()
     private lateinit var recyclerAdapter: LauncherRecyclerAdapter
 
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recycler: RecyclerView
     private lateinit var progress: ProgressBar
 
@@ -24,6 +26,7 @@ class LauncherActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout)
         recycler = findViewById(R.id.recycler)
         progress = findViewById(R.id.progress)
 
@@ -54,6 +57,11 @@ class LauncherActivity: AppCompatActivity() {
             setHasFixedSize(true)
             setItemViewCacheSize(1000)
             layoutManager!!.isItemPrefetchEnabled = true
+        }
+
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.updatePackageIdList()
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 
