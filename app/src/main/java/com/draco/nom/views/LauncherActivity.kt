@@ -1,8 +1,10 @@
 package com.draco.nom.views
 
+import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -47,13 +49,19 @@ class LauncherActivity: AppCompatActivity() {
             setHasStableIds(true)
         }
 
+        val launcherEdgeEffectFactory = LauncherEdgeEffectFactory().also {
+            it.pullDownListener = {
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+            }
+        }
+
         recycler.apply {
             adapter = recyclerAdapter
             layoutManager = LinearLayoutManager(this@LauncherActivity)
-            edgeEffectFactory = LauncherEdgeEffectFactory()
+            edgeEffectFactory = launcherEdgeEffectFactory
             setHasFixedSize(true)
             setItemViewCacheSize(1000)
-            layoutManager!!.isItemPrefetchEnabled = true
         }
     }
 
