@@ -45,7 +45,7 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
     /**
      *  When we pull down, show the keyboard to allow searches
      */
-    private val launcherEdgeEffectFactory = LauncherEdgeEffectFactory().also {
+    val launcherEdgeEffectFactory = LauncherEdgeEffectFactory().also {
         it.pullDownListener = {
             inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
         }
