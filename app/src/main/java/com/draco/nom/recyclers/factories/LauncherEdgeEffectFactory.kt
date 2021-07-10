@@ -1,10 +1,12 @@
 package com.draco.nom.recyclers.factories
 
 import android.content.res.Resources
+import android.util.Log
 import android.widget.EdgeEffect
 import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
+import kotlin.math.roundToInt
 
 class LauncherEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
     companion object {
@@ -41,9 +43,10 @@ class LauncherEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
      * Since screen height changes on rotate, we need to manually update the threshold when
      * the screen size changes
      */
-    fun updatePullThreshold(): Float {
+    fun updatePullThreshold() {
         val height = Resources.getSystem().displayMetrics.heightPixels
-        return height * PULL_DOWN_THRESHOLD
+        Log.d("HEIGHT", "${height * PULL_DOWN_THRESHOLD}")
+        pullThreshold = (height * PULL_DOWN_THRESHOLD).roundToInt()
     }
 
     inner class RecyclerEdgeEffect(private val view: RecyclerView, direction: Int) : EdgeEffect(view.context) {
