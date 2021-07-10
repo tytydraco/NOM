@@ -28,12 +28,21 @@ class AppListSearcher {
     }
 
     /**
-     * Return the first App found by our search query
+     * Return the first App index found by our search query
      */
     fun evaluate(list: List<App>): Int {
         val searchString = currentSearchQuery.joinToString("")
-        return list.indexOfFirst {
+        var bestItemIndex = list.indexOfFirst {
             it.name.lowercase().startsWith(searchString)
         }
+
+        /* Try matching partial matches if necessary */
+        if (bestItemIndex == -1) {
+            bestItemIndex = list.indexOfFirst {
+                it.name.lowercase().contains(searchString)
+            }
+        }
+
+        return bestItemIndex
     }
 }
