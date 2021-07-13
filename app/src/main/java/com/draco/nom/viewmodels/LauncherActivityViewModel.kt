@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -62,6 +63,13 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
             setHasFixedSize(true)
             setItemViewCacheSize(1000)
         }
+    }
+
+    /**
+     * Hide the soft keyboard
+     */
+    fun hideSoftKeyboard(view: View) {
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     /**

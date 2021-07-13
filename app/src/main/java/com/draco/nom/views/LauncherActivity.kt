@@ -61,6 +61,7 @@ class LauncherActivity: AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         viewModel.appListSearcher.reset()
+        viewModel.hideSoftKeyboard(binding.root)
     }
 
     override fun onBackPressed() {}
