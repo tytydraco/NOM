@@ -33,7 +33,7 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
     private val _packageListProgress = MutableLiveData(0)
     val packageListProgress: LiveData<Int> = _packageListProgress
 
-    private val appListSearcher = AppListSearcher()
+    val appListSearcher = AppListSearcher()
 
     /**
      * Recycler adapter that has stable ids used for showing apps

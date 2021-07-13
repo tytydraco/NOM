@@ -58,5 +58,10 @@ class LauncherActivity: AppCompatActivity() {
         viewModel.updatePackageIdList()
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.appListSearcher.reset()
+    }
+
     override fun onBackPressed() {}
 }
