@@ -13,6 +13,7 @@ import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.draco.nom.R
+import com.draco.nom.databinding.RecyclerViewItemBinding
 import com.draco.nom.models.App
 import com.google.android.material.textview.MaterialTextView
 import java.util.*
@@ -21,10 +22,7 @@ class LauncherRecyclerAdapter(
     private val context: Context,
     var appList: List<App>
 ): RecyclerView.Adapter<LauncherRecyclerAdapter.ViewHolder>() {
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val img = itemView.findViewById(R.id.img) as ImageView
-        val text = itemView.findViewById(R.id.text) as MaterialTextView
-
+    class ViewHolder(val binding: RecyclerViewItemBinding): RecyclerView.ViewHolder(binding.root) {
         val translationY = SpringAnimation(itemView, SpringAnimation.TRANSLATION_Y).apply {
             spring = SpringForce()
                 .setFinalPosition(0f)
@@ -34,8 +32,8 @@ class LauncherRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
-        return ViewHolder(view)
+        val binding = RecyclerViewItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -72,10 +70,10 @@ class LauncherRecyclerAdapter(
             true
         }
 
-        holder.text.text = packageName
+        holder.binding.text.text = packageName
         Glide.with(context)
             .load(packageIcon)
             .placeholder(R.drawable.ic_baseline_block_24)
-            .into(holder.img)
+            .into(holder.binding.img)
     }
 }
