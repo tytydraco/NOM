@@ -5,9 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +13,6 @@ import com.bumptech.glide.Glide
 import com.draco.nom.R
 import com.draco.nom.databinding.RecyclerViewItemBinding
 import com.draco.nom.models.App
-import com.google.android.material.textview.MaterialTextView
-import java.util.*
 
 class LauncherRecyclerAdapter(
     private val context: Context,

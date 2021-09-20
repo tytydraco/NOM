@@ -1,5 +1,6 @@
 package com.draco.nom.views
 
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -18,9 +19,10 @@ class LauncherActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         /* Makes the navigation bar all nice and transparent! */
-        window.decorView.setOnApplyWindowInsetsListener { _, windowInsets ->
-            windowInsets
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH)
+            window.decorView.setOnApplyWindowInsetsListener { _, windowInsets ->
+                windowInsets
+            }
 
         /* When the app list updates, make sure to update the recycler */
         viewModel.appList.observe(this) {
