@@ -41,9 +41,10 @@ class LauncherRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val packageId = appList.toList()[position].id
-        val packageName = appList.toList()[position].name
-        val packageIcon = appList.toList()[position].icon
+        val item = appList[position]
+        val packageId = item.id
+        val packageName = item.name
+        val packageIcon = item.icon
 
         holder.itemView.setOnClickListener {
             val appIntent = context.packageManager.getLaunchIntentForPackage(packageId) ?: return@setOnClickListener

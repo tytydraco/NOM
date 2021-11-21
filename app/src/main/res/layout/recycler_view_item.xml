@@ -7,7 +7,8 @@
     android:layout_marginVertical="@dimen/item_vertical_margin"
     android:paddingHorizontal="@dimen/item_horizontal_padding"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="?android:attr/selectableItemBackground">
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="@dimen/item_height"
         android:layout_height="@dimen/item_height"
