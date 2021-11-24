@@ -3,6 +3,7 @@ package com.draco.nom.views
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.draco.nom.databinding.ActivityLauncherBinding

@@ -18,4 +18,13 @@
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
+
+    <style name="RecyclerView">
+        <item name="android:fadingEdgeLength">@dimen/item_fading_edge_length</item>
+        <item name="android:requiresFadingEdge">vertical</item>
+    </style>
+
+    <style name="ProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_centerInParent">true</item>
+    </style>
 </resources>
