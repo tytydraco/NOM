@@ -1,5 +1,6 @@
 package com.draco.nom.views
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
