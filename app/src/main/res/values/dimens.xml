@@ -5,5 +5,6 @@
     <dimen name="item_horizontal_padding">12dp</dimen>
     <dimen name="item_vertical_margin">12dp</dimen>
     <dimen name="item_text_start_margin">12dp</dimen>
+    <dimen name="item_text_size">16sp</dimen>
     <dimen name="progress_bar_width">100dp</dimen>
 </resources>
