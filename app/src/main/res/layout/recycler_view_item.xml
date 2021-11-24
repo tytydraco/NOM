@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_height"
     style="@style/RecyclerItem">
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:layout_width="@dimen/item_height"
         android:layout_height="@dimen/item_height"
         android:id="@+id/img"
-        tools:ignore="ContentDescription"
-        style="@style/RecyclerItem.Image" />
-    <com.google.android.material.textview.MaterialTextView
+        tools:ignore="ContentDescription" />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/text"
