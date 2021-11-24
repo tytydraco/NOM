@@ -15,7 +15,6 @@ import com.draco.nom.BuildConfig
 import com.draco.nom.models.App
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
 import com.draco.nom.recyclers.factories.LauncherEdgeEffectFactory
-import com.draco.nom.utils.AppListSearcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -30,8 +29,6 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
 
     private val _packageListProgress = MutableLiveData(0)
     val packageListProgress: LiveData<Int> = _packageListProgress
-
-    val appListSearcher = AppListSearcher()
 
     /**
      * Recycler adapter that has stable ids used for showing apps
