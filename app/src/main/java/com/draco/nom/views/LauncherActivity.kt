@@ -43,9 +43,6 @@ class LauncherActivity: AppCompatActivity() {
 
         /* Setup the recycler view now */
         viewModel.prepareRecycler(this, binding.recycler)
-
-        /* Update our pull threshold on each activity creation */
-        viewModel.launcherEdgeEffectFactory.updatePullThreshold()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

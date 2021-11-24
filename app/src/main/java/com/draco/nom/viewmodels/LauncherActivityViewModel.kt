@@ -43,14 +43,7 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
         setHasStableIds(true)
     }
 
-    /**
-     *  When we pull down, show the keyboard to allow searches
-     */
-    val launcherEdgeEffectFactory = LauncherEdgeEffectFactory().also {
-        it.pullDownListener = {
-            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-        }
-    }
+    private val launcherEdgeEffectFactory = LauncherEdgeEffectFactory()
 
     /**
      * Prepare the recycler view

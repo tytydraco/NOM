@@ -1,52 +1,13 @@
 package com.draco.nom.recyclers.factories
 
-import android.content.res.Resources
-import android.util.Log
 import android.widget.EdgeEffect
 import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
-import kotlin.math.roundToInt
 
 class LauncherEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
     companion object {
         const val PHYSICS_PULL_MODIFIER = 0.1f
-
-        /**
-         * Ratio of how far the user has to drag down to trigger the event
-         */
-        const val PULL_DOWN_THRESHOLD = 0.5f
-    }
-
-    /**
-     * Has the user successfully activated the pull down trigger?
-     */
-    private var pullDownActivated = false
-
-    /**
-     * Register what happens when we trigger the pull down
-     */
-    var pullDownListener: (() -> Unit)? = null
-
-    /**
-     * How far we have dragged
-     */
-    private var trueTranslationY = 0f
-
-    /**
-     * How far we have to drag to trigger the pull down
-     */
-    private var pullThreshold = 0
-
-
-    /**
-     * Since screen height changes on rotate, we need to manually update the threshold when
-     * the screen size changes
-     */
-    fun updatePullThreshold() {
-        val height = Resources.getSystem().displayMetrics.heightPixels
-        Log.d("HEIGHT", "${height * PULL_DOWN_THRESHOLD}")
-        pullThreshold = (height * PULL_DOWN_THRESHOLD).roundToInt()
     }
 
     inner class RecyclerEdgeEffect(private val view: RecyclerView, direction: Int) : EdgeEffect(view.context) {
@@ -59,17 +20,11 @@ class LauncherEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
             val rawTranslationYDelta = directionModifier * view.height * deltaDistance
             val translationYDelta = rawTranslationYDelta * PHYSICS_PULL_MODIFIER
 
-            trueTranslationY += rawTranslationYDelta
-
             for (child in view.children) {
                 val holder = view.getChildViewHolder(child) as LauncherRecyclerAdapter.ViewHolder
                 holder.translationY.cancel()
                 holder.itemView.translationY += translationYDelta
             }
-
-            /* Only trigger pull down once */
-            if (!pullDownActivated && trueTranslationY >= pullThreshold)
-                pullDownActivated = true
         }
 
         override fun onPull(deltaDistance: Float) {
@@ -84,15 +39,6 @@ class LauncherEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
 
         override fun onRelease() {
             super.onRelease()
-
-            /* Trigger our pull down action now and reset our pull trigger status */
-            if (pullDownActivated) {
-                pullDownListener?.invoke()
-                pullDownActivated = false
-            }
-
-            /* We let go of the screen */
-            trueTranslationY = 0f
 
             for (child in view.children) {
                 val holder = view.getChildViewHolder(child) as LauncherRecyclerAdapter.ViewHolder
