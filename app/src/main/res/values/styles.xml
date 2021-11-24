@@ -14,7 +14,7 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/item_text_size</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:layout_marginStart">@dimen/item_text_start_margin</item>
+        <item name="android:layout_marginStart">@dimen/item_horizontal_padding</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
