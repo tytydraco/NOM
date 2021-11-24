@@ -3,27 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_height"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginVertical="@dimen/item_vertical_margin"
-    android:paddingHorizontal="@dimen/item_horizontal_padding"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:background="?android:attr/selectableItemBackground">
+    style="@style/RecyclerItem">
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="@dimen/item_height"
         android:layout_height="@dimen/item_height"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Circle"
         android:id="@+id/img"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        style="@style/RecyclerItem.Image" />
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextAppearance.AppCompat.Menu"
-        android:textColor="@android:color/white"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:layout_marginStart="@dimen/item_text_start_margin"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:id="@+id/text" />
+        android:id="@+id/text"
+        style="@style/RecyclerItem.Text" />
 </LinearLayout>

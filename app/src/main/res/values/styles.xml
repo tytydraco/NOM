@@ -4,4 +4,28 @@
         <item name="cornerSize">50%</item>
         <item name="cornerFamily">rounded</item>
     </style>
+
+    <style name="RecyclerItem">
+        <item name="android:layout_marginTop">@dimen/item_vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/item_vertical_margin</item>
+        <item name="android:layout_marginStart">@dimen/item_horizontal_padding</item>
+        <item name="android:layout_marginEnd">@dimen/item_horizontal_padding</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="RecyclerItem.Image">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Circle</item>
+    </style>
+
+    <style name="RecyclerItem.Text" parent="TextAppearance.AppCompat.Menu">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Circle</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginStart">@dimen/item_text_start_margin</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 </resources>
