@@ -19,7 +19,7 @@
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Circle</item>
     </style>
 
-    <style name="RecyclerItem.Text" parent="TextAppearance.AppCompat.Menu">
+    <style name="RecyclerItem.Text">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Circle</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textAllCaps">true</item>

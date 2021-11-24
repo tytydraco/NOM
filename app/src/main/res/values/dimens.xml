@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="item_fading_edge_length">48dp</dimen>
-    <dimen name="item_height">60dp</dimen>
+    <dimen name="item_height">52dp</dimen>
     <dimen name="item_horizontal_padding">12dp</dimen>
     <dimen name="item_vertical_margin">12dp</dimen>
     <dimen name="item_text_start_margin">12dp</dimen>
-
     <dimen name="progress_bar_width">100dp</dimen>
 </resources>
