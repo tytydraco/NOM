@@ -1,9 +1,7 @@
 package com.draco.nom.views
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -44,13 +42,6 @@ class LauncherActivity: AppCompatActivity() {
 
         /* Setup the recycler view now */
         viewModel.prepareRecycler(this, binding.recycler)
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        return if (viewModel.handleKeyboardNavEvent(event,  binding.recycler))
-            true
-        else
-            super.onKeyDown(keyCode, event)
     }
 
     override fun onResume() {

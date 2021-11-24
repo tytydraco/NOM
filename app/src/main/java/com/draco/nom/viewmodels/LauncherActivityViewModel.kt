@@ -3,7 +3,6 @@ package com.draco.nom.viewmodels
 import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.AndroidViewModel
@@ -16,8 +15,6 @@ import com.draco.nom.BuildConfig
 import com.draco.nom.models.App
 import com.draco.nom.recyclers.LauncherRecyclerAdapter
 import com.draco.nom.recyclers.factories.LauncherEdgeEffectFactory
-import com.draco.nom.recyclers.scrollers.SmoothScrollerTopAndFocus
-import com.draco.nom.repositories.constants.ScrollDirection
 import com.draco.nom.utils.AppListSearcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -85,13 +82,12 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
                 val activity = activities[activityIndex]
                 val packageId = activity.activityInfo.packageName
                 if (packageId != BuildConfig.APPLICATION_ID) {
-                    newAppList += App(
-                        packageId,
-                        packageManager
-                            .getApplicationInfo(packageId, 0)
-                            .loadLabel(packageManager).toString(),
-                        packageManager.getApplicationIcon(packageId)
-                    )
+                    val label = packageManager
+                        .getApplicationInfo(packageId, 0)
+                        .loadLabel(packageManager).toString()
+                    val icon = packageManager.getApplicationIcon(packageId)
+
+                    newAppList += App(packageId, label, icon)
                 }
                 val progress = ((activityIndex.toFloat() / activities.size) * 100).roundToInt()
                 _packageListProgress.postValue(progress)
@@ -105,130 +101,4 @@ class LauncherActivityViewModel(application: Application) : AndroidViewModel(app
                 _appList.postValue(newAppList)
         }
     }
-
-    /**
-     * Scroll recycler to list position
-     */
-    private fun smoothScrollToPosition(recycler: RecyclerView, position: Int) {
-        if (position == -1)
-            return
-
-        val context = getApplication<Application>().applicationContext
-        val layoutManager = recycler.layoutManager as LinearLayoutManager
-        val scroller = SmoothScrollerTopAndFocus(context).apply {
-            targetPosition = position
-        }
-
-        layoutManager.startSmoothScroll(scroller)
-    }
-
-    /**
-     * Scroll recycler by an entire page
-     */
-    private fun pageScroll(recycler: RecyclerView, direction: ScrollDirection) {
-        val context = getApplication<Application>().applicationContext
-        val adapter = recycler.adapter as LauncherRecyclerAdapter
-        val layoutManager = recycler.layoutManager as LinearLayoutManager
-        val newPosition = when (direction) {
-            ScrollDirection.UP -> {
-                val topPos = layoutManager.findFirstVisibleItemPosition()
-                val bottomPos = layoutManager.findLastVisibleItemPosition()
-                val totalVisibleItems = bottomPos - topPos
-                val newPos = topPos - totalVisibleItems
-
-                newPos.coerceAtLeast(0)
-            }
-            ScrollDirection.DOWN -> {
-                val bottomPos = layoutManager.findLastVisibleItemPosition()
-                val lastItemPosition = adapter.itemCount - 1
-                bottomPos.coerceAtMost(lastItemPosition)
-            }
-        }
-        val scroller = SmoothScrollerTopAndFocus(context).apply {
-            targetPosition = newPosition
-        }
-
-        layoutManager.startSmoothScroll(scroller)
-    }
-
-    /**
-     * Start to end scrolling
-     */
-    private fun fullScroll(recycler: RecyclerView, direction: ScrollDirection) {
-        val context = getApplication<Application>().applicationContext
-        val adapter = recycler.adapter as LauncherRecyclerAdapter
-        val layoutManager = recycler.layoutManager as LinearLayoutManager
-        val newPosition = when (direction) {
-            ScrollDirection.UP -> 0
-            ScrollDirection.DOWN -> adapter.itemCount - 1
-        }
-        val scroller = SmoothScrollerTopAndFocus(context).apply {
-            targetPosition = newPosition
-        }
-
-        layoutManager.startSmoothScroll(scroller)
-    }
-
-    /**
-     * Attempt to handle user keyboard navigation events
-     * @return True if the event was handled
-     */
-    fun handleKeyboardNavEvent(event: KeyEvent, recycler: RecyclerView): Boolean {
-        /* Handle paging */
-        when (event.keyCode) {
-            KeyEvent.KEYCODE_PAGE_UP -> {
-                pageScroll(recycler, ScrollDirection.UP)
-                return true
-            }
-
-            KeyEvent.KEYCODE_PAGE_DOWN -> {
-                pageScroll(recycler, ScrollDirection.DOWN)
-                return true
-            }
-
-            KeyEvent.KEYCODE_MOVE_HOME -> {
-                fullScroll(recycler, ScrollDirection.UP)
-                return true
-            }
-
-            KeyEvent.KEYCODE_MOVE_END -> {
-                fullScroll(recycler, ScrollDirection.DOWN)
-                return true
-            }
-        }
-
-        /* Handle meta keys for searcher */
-        val currentAppList = _appList.value!!
-        when (event.keyCode) {
-            KeyEvent.KEYCODE_DEL -> {
-                appListSearcher.broaden()
-                smoothScrollToPosition(recycler, appListSearcher.evaluate(currentAppList))
-                return true
-            }
-
-            KeyEvent.KEYCODE_ESCAPE -> {
-                appListSearcher.reset()
-                smoothScrollToPosition(recycler, appListSearcher.evaluate(currentAppList))
-                return true
-            }
-        }
-
-        /* Handle search terms */
-        val char = event.displayLabel
-        if (isCharAlphanumeric(char)) {
-            val letter = char.toString().lowercase()
-
-            appListSearcher.narrow(letter)
-            smoothScrollToPosition(recycler, appListSearcher.evaluate(currentAppList))
-
-            return true
-        }
-
-        return false
-    }
-
-    /**
-     * Check if a character is alphanumeric
-     */
-    private fun isCharAlphanumeric(char: Char): Boolean = char.toString().matches(Regex("[a-zA-Z0-9]+"))
 }
