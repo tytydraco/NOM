@@ -10,7 +10,7 @@ import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.draco.nom.R
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.draco.nom.databinding.RecyclerViewItemBinding
 import com.draco.nom.models.App
 
@@ -32,22 +32,17 @@ class LauncherRecyclerAdapter(
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return appList.size
-    }
+    override fun getItemCount() = appList.size
 
-    override fun getItemId(position: Int): Long {
-        return appList[position].name.hashCode().toLong()
-    }
+    override fun getItemId(position: Int) = appList[position].name.hashCode().toLong()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = appList[position]
-        val packageId = item.id
-        val packageName = item.name
-        val packageIcon = item.icon
 
         holder.itemView.setOnClickListener {
-            val appIntent = context.packageManager.getLaunchIntentForPackage(packageId) ?: return@setOnClickListener
+            val appIntent = context
+                .packageManager
+                .getLaunchIntentForPackage(item.id) ?: return@setOnClickListener
             appIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
             try {
@@ -58,7 +53,7 @@ class LauncherRecyclerAdapter(
         holder.itemView.setOnLongClickListener {
             val settingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             settingsIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            settingsIntent.data = Uri.fromParts("package", packageId, null)
+            settingsIntent.data = Uri.fromParts("package", item.id, null)
 
             try {
                 context.startActivity(settingsIntent)
@@ -67,10 +62,10 @@ class LauncherRecyclerAdapter(
             true
         }
 
-        holder.binding.text.text = packageName
+        holder.binding.text.text = item.name
         Glide.with(context)
-            .load(packageIcon)
-            .placeholder(R.drawable.ic_baseline_block_24)
+            .load(item.icon)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.img)
     }
 }
