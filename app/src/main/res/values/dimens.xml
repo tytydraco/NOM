@@ -2,8 +2,8 @@
 <resources>
     <dimen name="item_fading_edge_length">48dp</dimen>
     <dimen name="item_height">50dp</dimen>
-    <dimen name="item_horizontal_padding">24dp</dimen>
     <dimen name="item_vertical_margin">12dp</dimen>
+    <dimen name="item_horizontal_padding">24dp</dimen>
     <dimen name="item_text_size">16sp</dimen>
     <dimen name="progress_bar_size">100dp</dimen>
 </resources>

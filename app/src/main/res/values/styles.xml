@@ -3,8 +3,8 @@
     <style name="RecyclerItem">
         <item name="android:layout_marginTop">@dimen/item_vertical_margin</item>
         <item name="android:layout_marginBottom">@dimen/item_vertical_margin</item>
-        <item name="android:layout_marginStart">@dimen/item_horizontal_padding</item>
-        <item name="android:layout_marginEnd">@dimen/item_horizontal_padding</item>
+        <item name="android:paddingStart">@dimen/item_horizontal_padding</item>
+        <item name="android:paddingEnd">@dimen/item_horizontal_padding</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
