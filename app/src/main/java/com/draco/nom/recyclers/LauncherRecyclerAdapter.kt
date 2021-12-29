@@ -11,7 +11,6 @@ import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.draco.nom.databinding.RecyclerViewItemBinding
 import com.draco.nom.models.App
 
@@ -67,7 +66,6 @@ class LauncherRecyclerAdapter(
         Glide.with(context)
             .load(item.icon)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .transform(RoundedCorners(50))
             .into(holder.binding.img)
     }
 }
